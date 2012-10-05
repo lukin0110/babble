@@ -1,0 +1,46 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <TextView
+        android:id="@+id/list_item_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:text="I want a beer"
+        android:textColor="@color/grey2"
+        android:textSize="16sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/list_item_lang"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/list_item_text"
+        android:text="Spanish"
+        android:textSize="24sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/list_item_dist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@id/list_item_lang"
+        android:text="123"
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        android:typeface="monospace"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/list_item_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@+id/list_item_dist"
+        android:text="Pretty good!"
+        android:textColor="@color/blue"
+        android:textSize="14sp"
+        android:typeface="monospace"
+        android:visibility="gone" />
+
+</merge>

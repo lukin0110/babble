@@ -1,4 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DefaultActivity</string>
+
+    <string name="keyService" translatable="false">keyService</string>
+    <string name="keyLanguage" translatable="false">keyLanguage</string>
+    <string name="keyMaxOneResult" translatable="false">keyMaxOneResult</string>
+    <string name="keyUseExternalEvaluator" translatable="false">keyUseExternalEvaluator</string>
+    <string name="keyAudioCues" translatable="false">keyAudioCues</string>
+    <string name="urlVHackProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
+    <string name="urlLangProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
+    <string name="urlLangDownload" translatable="false">https://play.google.com/store/apps/details?id=be.lukin.android.lang</string>
+    <string name="labelApp">Lang</string>
+    <string name="prefCurrentSortOrder" translatable="false">prefCurrentSortOrder</string>
+    <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
+    <string name="prefRecognizerServiceCls" translatable="false">prefRecognizerServiceCls</string>
+    <string name="prefFirstTime" translatable="false">prefFirstTime</string>
+    <string name="labelSettings">Settings</string>
+    <string name="warningParserInputNotSupported">Input sentence not supported</string>
+    <string name="error">Error</string>
+    <string name="errorResultAudioError">Audio recording failed. Maybe another app is currently recording.</string>
+    <string name="errorResultNetworkError">Something is wrong with the network</string>
+    <string name="errorResultClientError">General client error</string>
+    <string name="errorResultServerError">Recognizer server error</string>
+    <string name="errorResultNoMatch">No match was found for the recorded speech. Please try again!</string>
+    <string name="errorRecognizerNotPresent">Arvutaja works best with the speech recognition service %1$s. Please install it from the Play Store.</string>
+    <string name="errorCommandNotSupported">Command not supported</string>
+    <string name="errorIntentActivityNotPresent">There is no app to perform this task. Install it from Play Store first.</string>
+    <string name="errorNoDefaultRecognizer">Speech recognizer not installed or no default recognizer set</string>
+    <string name="menuMainSort">Sort …</string>
+    <string name="menuMainSortByTimestamp">by time</string>
+    <string name="menuMainSortByLang">by language</string>
+    <string name="menuMainSortByDist">by edit distance</string>
+    <string name="menuMainSettings">Settings</string>
+    <string name="cmMainDelete">Delete</string>
+    <string name="titleCategoryLinks">Links</string>
+    <string name="titleMaxOneResult">I feel lucky</string>
+    <string name="summaryMaxOneResult">Consider only the most probable recognition result</string>
+    <string name="titleService">Speech recognizer</string>
+    <string name="dialogTitleService">Select speech recognizer</string>
+    <string name="titleLanguage">Input language</string>
+    <string name="dialogTitleLanguage">Select language</string>
+    <string name="titleAudioCues">Play audio cues</string>
+    <string name="summaryAudioCues">Beep before and after recording</string>
+    <string name="titleLangProject">project Lang</string>
+    <string name="summaryLangProject">(maker of this app)</string>
+    <string name="titleVHackProject">project V Hack Android</string>
+    <string name="summaryVHackProject">V Hack Android Belgium 2012</string>
+    <string name="confirmDeleteEntry">Are you sure you want to delete entry \"%1$s\"?</string>
+    <string name="buttonMicrophoneContentDescription">Press this button to speak an expression</string>
+    <string name="buttonYes">Yes</string>
+    <string name="buttonNo">No</string>
+    <string name="buttonOk">OK</string>
+    <string name="buttonCancel">Cancel</string>
+    <string name="buttonGoToStore">Go to Play Store</string>
+    <string name="buttonNever">Never</string>
+    <string name="buttonLater">Later</string>
+
+    <!-- TODO: get rid of the following, because these are picked up dynamically -->
+    <string-array name="entriesService" translatable="false"></string-array>
+    <string-array name="valuesService" translatable="false"></string-array>
+    <string-array name="entriesLanguage" translatable="false"></string-array>
+
+    <string name="defaultLanguage" translatable="false">en-US</string>
+
+    <string-array name="valuesLanguage" translatable="false"></string-array>
+
+    <plurals name="numberOfInputs">
+        <item quantity="zero">no inputs</item> <!-- zero is ignored in English -->
+        <item quantity="one">1 input</item>
+        <item quantity="other">%d inputs</item>
+    </plurals>
+
 </resources>

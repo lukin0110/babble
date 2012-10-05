@@ -9,13 +9,11 @@ from language import pages
 # loading the mappings
 mappings = [
     ('/', pages.IndexPage),
+    ('/list/sentences', pages.SentencesPage),
+    ('/list/history', pages.HistoryPage),
+    ('/save/assessment', pages.SaveAssessment),
+    ('/import', pages.TempPage)
     ]
-
-'''
-    ('/wie/([^\\.]*)', pages.PersonPage),
-    ('/spel/(.*)', pages.GamePage),
-    ('/.*', pages.CatchallPage),
-'''
 
 # initialize the app with the mappings
 application = webapp.WSGIApplication(mappings,debug=True)
