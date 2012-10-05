@@ -1,0 +1,14 @@
+application: hackathongenk
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /s
+  static_dir: static
+
+- url: /.*
+  script: app.py
+
+
+
