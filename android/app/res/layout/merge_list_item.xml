@@ -28,11 +28,10 @@
         android:text="123"
         android:textColor="@color/red"
         android:textSize="13sp"
-        android:typeface="monospace"
-        android:visibility="gone" />
+        android:typeface="monospace" />
 
     <TextView
-        android:id="@+id/list_item_message"
+        android:id="@+id/list_item_result"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="true"
@@ -40,7 +39,18 @@
         android:text="Pretty good!"
         android:textColor="@color/blue"
         android:textSize="14sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/list_item_id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@+id/list_item_result"
+        android:text="12"
+        android:textColor="@color/blue"
+        android:textSize="14sp"
         android:typeface="monospace"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </merge>

@@ -4,7 +4,6 @@
     <string name="keyService" translatable="false">keyService</string>
     <string name="keyLanguage" translatable="false">keyLanguage</string>
     <string name="keyMaxOneResult" translatable="false">keyMaxOneResult</string>
-    <string name="keyUseExternalEvaluator" translatable="false">keyUseExternalEvaluator</string>
     <string name="keyAudioCues" translatable="false">keyAudioCues</string>
     <string name="urlVHackProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
     <string name="urlLangProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
@@ -14,6 +13,7 @@
     <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
     <string name="prefRecognizerServiceCls" translatable="false">prefRecognizerServiceCls</string>
     <string name="prefFirstTime" translatable="false">prefFirstTime</string>
+    <string name="labelPhrases">Phrases</string>
     <string name="labelSettings">Settings</string>
     <string name="warningParserInputNotSupported">Input sentence not supported</string>
     <string name="error">Error</string>
@@ -30,6 +30,7 @@
     <string name="menuMainSortByTimestamp">by time</string>
     <string name="menuMainSortByLang">by language</string>
     <string name="menuMainSortByDist">by edit distance</string>
+    <string name="menuMainPhrases">Phrases</string>
     <string name="menuMainSettings">Settings</string>
     <string name="cmMainDelete">Delete</string>
     <string name="titleCategoryLinks">Links</string>
@@ -54,6 +55,7 @@
     <string name="buttonGoToStore">Go to Play Store</string>
     <string name="buttonNever">Never</string>
     <string name="buttonLater">Later</string>
+    <string name="emptylistPhrases">No phrases yet</string>
 
     <!-- TODO: get rid of the following, because these are picked up dynamically -->
     <string-array name="entriesService" translatable="false"></string-array>
