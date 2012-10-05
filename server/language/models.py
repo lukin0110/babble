@@ -15,4 +15,4 @@ class Assessment(db.Model):
     phoneId = db.StringProperty(required=True)
     sentenceId = db.StringProperty(required=True)
     score = db.FloatProperty(required=True, default=-1)
-    date_created = db.DateProperty()
+    date_created = db.DateTimeProperty()

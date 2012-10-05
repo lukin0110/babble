@@ -12,6 +12,7 @@ mappings = [
     ('/list/sentences', pages.SentencesPage),
     ('/list/history', pages.HistoryPage),
     ('/save/assessment', pages.SaveAssessment),
+    ('/import', pages.TempPage)
     ]
 
 # initialize the app with the mappings
