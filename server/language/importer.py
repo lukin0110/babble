@@ -30,3 +30,4 @@ def force_unicode(string):
     if type(string) == unicode:
         return string
     return string.decode('utf-8')
+
