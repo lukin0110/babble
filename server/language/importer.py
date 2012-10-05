@@ -22,11 +22,8 @@ data =[
 def importSentences(data):
     counter = 0
     for sent in data:
-        Sentence(value = force_unicode(sent['en']),group = str(counter),locale = "en").save()
-        Sentence(value = force_unicode(sent['nl']),group = str(counter),locale = "nl").save()
-        Sentence(value = force_unicode(sent['es']),group = str(counter),locale = "es").save()
-        Sentence(value = force_unicode(sent['fr']),group = str(counter),locale = "fr").save()
-        Sentence(value = force_unicode(sent['ru']),group = str(counter),locale = "ru").save()
+        for iso, langstring in sent:
+            Sentence(value = force_unicode(langstring),group = str(counter),locale = iso).save()
         counter += 1
 
 def force_unicode(string):
