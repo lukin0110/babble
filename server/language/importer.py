@@ -22,7 +22,7 @@ data =[
 def importSentences(data):
     counter = 0
     for sent in data:
-        for iso, langstring in sent:
+        for iso, langstring in sent.items():
             Sentence(value = force_unicode(langstring),group = str(counter),locale = iso).save()
         counter += 1
 
