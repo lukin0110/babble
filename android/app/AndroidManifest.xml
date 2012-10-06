@@ -25,9 +25,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".PhrasesActivity"
+            android:label="@string/labelPhrases" >
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:label="@string/labelSettings" >
         </activity>
+
+        <provider
+            android:name=".provider.LangContentProvider"
+            android:authorities="be.lukin.android.lang.provider.LangContentProvider"
+            android:exported="false" />
     </application>
 
 </manifest>

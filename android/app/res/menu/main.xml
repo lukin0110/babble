@@ -21,6 +21,11 @@
         </menu>
     </item>
     <item
+        android:id="@+id/menuMainPhrases"
+        android:icon="@drawable/ic_menu_share"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menuMainPhrases"/>
+    <item
         android:id="@+id/menuMainSettings"
         android:icon="@drawable/ic_menu_preferences"
         android:showAsAction="ifRoom|withText"

@@ -12,22 +12,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CursorTreeAdapter;
 import android.widget.LinearLayout;
 
 import android.app.ActionBar;
-import android.content.AsyncQueryHandler;
 import android.content.ComponentName;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.preference.PreferenceManager;
 import be.lukin.android.lang.Constants.State;
+import be.lukin.android.lang.provider.Phrase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,48 +46,7 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private SpeechRecognizer mSr;
 
-	// TODO
-	private static final String SORT_ORDER_TIMESTAMP = "";
-
-	private final class QueryHandler extends AsyncQueryHandler {
-		private CursorTreeAdapter mAdapter;
-
-		public QueryHandler(Context context, CursorTreeAdapter adapter) {
-			super(context.getContentResolver());
-			this.mAdapter = adapter;
-		}
-
-		@Override
-		protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-			updateUi();
-		}
-
-		protected void onDeleteComplete(int token, Object cookie, int result) {
-			updateUi();
-		}
-
-		protected void onInsertComplete(int token, Object cookie, Uri uri) {
-			updateUi();
-		}
-
-		public void insert(Uri contentUri, ContentValues values) {
-			startInsert(1, null, contentUri, values);
-		}
-
-		public void delete(Uri contentUri, long key) {
-			Uri uri = ContentUris.withAppendedId(contentUri, key);
-			startDelete(1, null, uri, null, null);
-		}
-
-		private void updateUi() {
-			if (mActionBar != null) {
-				int count = mAdapter.getGroupCount();
-				mActionBar.setSubtitle(
-						mRes.getQuantityString(R.plurals.numberOfInputs, count, count));
-			}
-		}
-	}
-
+	private static final Uri CONTENT_URI = Phrase.Columns.CONTENT_URI;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -103,11 +58,8 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
-		//registerForContextMenu(mListView);
-
 		mActionBar = getActionBar();
 		mActionBar.setHomeButtonEnabled(false);
-
 	}
 
 
@@ -191,8 +143,12 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		// TODO: move this to the phrases activity
 		case R.id.menuMainSortByTimestamp:
-			sort(item, SORT_ORDER_TIMESTAMP);
+			//sort(item, SORT_ORDER_TIMESTAMP);
+			return true;
+		case R.id.menuMainPhrases:
+			startActivity(new Intent(this, PhrasesActivity.class));
 			return true;
 		case R.id.menuMainSettings:
 			startActivity(new Intent(this, SettingsActivity.class));
@@ -238,10 +194,11 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 		mButtonMicrophone.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (mState == State.INIT || mState == State.ERROR) {
+					String phrase = getPhrase();
 					if (mAudioCue != null) {
 						mAudioCue.playStartSoundAndSleep();
 					}
-					startListening(sr, intentRecognizer);
+					startListening(sr, intentRecognizer, phrase);
 				}
 				else if (mState == State.LISTENING) {
 					sr.stopListening();
@@ -284,7 +241,25 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private void startListening(final SpeechRecognizer sr, Intent intentRecognizer) {
+	private void addEntry(String text, String lang, int dist, String result) {
+		ContentValues values = new ContentValues();
+		values.put(Phrase.Columns.TEXT, text);
+		values.put(Phrase.Columns.LANG, lang);
+		values.put(Phrase.Columns.DIST, dist);
+		values.put(Phrase.Columns.RESULT, result);
+		insert(CONTENT_URI, values);
+	}
+
+
+	// TODO: dummy
+	private String getPhrase() {
+		return "vamos a la playa";
+	}
+
+
+	private void startListening(final SpeechRecognizer sr, Intent intentRecognizer, String phrase) {
+
+		final String mPhrase = phrase;
 
 		sr.setRecognitionListener(new RecognitionListener() {
 
@@ -370,6 +345,10 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 				mState = State.INIT;
 				mButtonMicrophone.setState(mState);
 				toast(matches.toString()); // TODO: populate the list instead
+				// TODO: fix
+				if (! matches.isEmpty()) {
+					addEntry(mPhrase, "lang", 123, matches.iterator().next());
+				}
 			}
 
 			@Override

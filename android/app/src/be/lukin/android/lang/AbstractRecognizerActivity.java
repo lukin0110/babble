@@ -4,10 +4,12 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.widget.Toast;
 
 public abstract class AbstractRecognizerActivity extends Activity {
@@ -21,6 +23,11 @@ public abstract class AbstractRecognizerActivity extends Activity {
 		PackageManager pm = getPackageManager();
 		List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
 		return activities;
+	}
+
+
+	protected void insert(Uri contentUri, ContentValues values) {
+		getContentResolver().insert(contentUri, values);
 	}
 
 
@@ -41,4 +48,5 @@ public abstract class AbstractRecognizerActivity extends Activity {
 		.create()
 		.show();
 	}
+
 }
