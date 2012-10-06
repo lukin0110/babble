@@ -20,6 +20,11 @@ class IndexPage(webapp.RequestHandler):
         }
         self.response.out.write(template.render('templates/index.html', values))
 
+class TempPage(webapp.RequestHandler):
+    def get(self):
+        importer.importSentences(data.list)
+        self.response.out.write("Done ... ")
+
 class SentencesPage(webapp.RequestHandler):
     def get(self):
         results = {}
@@ -53,7 +58,3 @@ class SaveAssessment(webapp.RequestHandler):
         values = {}
 
 
-class TempPage(webapp.RequestHandler):
-    def get(self):
-        importer.importSentences(data.list)
-        self.response.out.write("Done ... ")
