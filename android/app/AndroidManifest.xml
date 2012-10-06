@@ -32,6 +32,7 @@
             android:name=".SettingsActivity"
             android:label="@string/labelSettings" >
         </activity>
+        <activity android:name="org.achartengine.GraphicalActivity" />
 
         <provider
             android:name=".provider.LangContentProvider"

@@ -13,6 +13,7 @@
     <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
     <string name="prefRecognizerServiceCls" translatable="false">prefRecognizerServiceCls</string>
     <string name="labelPhrases">Phrases</string>
+    <string name="labelLanguagesPlot">Plot</string>
     <string name="labelSettings">Settings</string>
     <string name="error">Error</string>
     <string name="errorResultAudioError">Audio recording failed. Maybe another app is currently recording.</string>
@@ -28,6 +29,7 @@
     <string name="menuMainSortByLang">by language</string>
     <string name="menuMainSortByDist">by edit distance</string>
     <string name="menuMainPhrases">Phrases</string>
+    <string name="menuLanguagesPlot">Plot</string>
     <string name="menuMainSettings">Settings</string>
     <string name="cmMainDelete">Delete</string>
     <string name="titleCategoryLinks">Links</string>
