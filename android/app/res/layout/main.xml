@@ -12,7 +12,7 @@
         android:padding="10dp"
         android:text=""
         android:textColor="@color/blue"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tvResult"
@@ -23,7 +23,19 @@
         android:padding="10dp"
         android:text=""
         android:textColor="@color/android_green"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvResult"
+        android:background="@color/grey2"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/llMicrophone"

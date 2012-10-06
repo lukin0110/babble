@@ -29,6 +29,7 @@ import be.lukin.android.lang.provider.Phrase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DefaultActivity extends AbstractRecognizerActivity {
@@ -50,6 +51,7 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private TextView mTvPhrase;
 	private TextView mTvResult;
+	private TextView mTvScore;
 
 	private final List<PhraseItem> mPhrases = getPhrases();
 
@@ -83,6 +85,7 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 		mTvPhrase = (TextView) findViewById(R.id.tvPhrase);
 		mTvResult = (TextView) findViewById(R.id.tvResult);
+		mTvScore = (TextView) findViewById(R.id.tvScore);
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
 		mActionBar = getActionBar();
@@ -92,14 +95,19 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private List<PhraseItem> getPhrases() {
 		List<PhraseItem> phrases = new ArrayList<PhraseItem>();
-		phrases.add(new PhraseItem("Vamos a la playa", "es-MX"));
+		phrases.add(new PhraseItem("Vamos a la playa!", "es-MX"));
+		phrases.add(new PhraseItem("Tiene arroz con pollo?", "es-AR"));
 		phrases.add(new PhraseItem("Cogito ergo sum", "Latin"));
+		phrases.add(new PhraseItem("Homo homini lupus est", "Latin"));
 		phrases.add(new PhraseItem("Белеет парус одинокий. В тумане моря голубом!", "ru-RU"));
+		phrases.add(new PhraseItem("Октябрь уж наступил — уж роща отряхает", "ru-RU"));
 		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en-US"));
 		phrases.add(new PhraseItem("Talpra magyar, hí a haza! Itt az idő, most vagy soha!", "hu-HU"));
-		phrases.add(new PhraseItem("Die Gläubigen haben in Genk im Laufe der Zeit Kirchen", "de-DE"));
+		phrases.add(new PhraseItem("Nett, Sie kennen zu lernen.", "de-DE"));
+		phrases.add(new PhraseItem("Gibt es hier jemanden, der Englisch spricht?", "de-DE"));
 		phrases.add(new PhraseItem("Helposti saatu on helposti menetetty", "fi-FI"));
-		phrases.add(new PhraseItem("Genk is de hoofdplaats van het kieskanton en het gerechtelijk kanton Genk.", "nl-NL"));
+		phrases.add(new PhraseItem("Ik heb mijn bagage verloren.", "nl-NL"));
+		phrases.add(new PhraseItem("Mag ik uw telefoon gebruiken?", "nl-NL"));
 		return phrases;
 	}
 
@@ -309,21 +317,21 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	private void setUiInput(String text) {
 		mTvPhrase.setText(text);
 		mTvResult.setText("");
+		mTvScore.setVisibility(View.GONE);
 	}
 
 
-	private void setUiResult(String resultText) {
+	private void setUiResult(String langCode, String resultText, int dist) {
 		mTvResult.setText(resultText);
-	}
-
-
-	// TODO: implement proper edit distance
-	// It should not be sensitive to the length of the strings
-	private int getDistance(String str1, String str2) {
-		if (str1.toLowerCase().equals(str2.toLowerCase())) {
-			return 0;
+		Locale l = new Locale(langCode);
+		String distText = "Sorry, but no native speaker of " + l.getDisplayName(l) + " (" + langCode + ") would understand you...";
+		if (dist == 0) {
+			distText = "Perfect!";
+		} else if (dist < 10) {
+			distText = "Pretty good";
 		}
-		return 100 / (str1.length() + str2.length());
+		mTvScore.setText(distText);
+		mTvScore.setVisibility(View.VISIBLE);
 	}
 
 
@@ -413,16 +421,17 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 			@Override
 			public void onResults(Bundle results) {
 				ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-				// TODO: confidence scores support is only in API 14
 				mState = State.INIT;
 				mButtonMicrophone.setState(mState);
 				if (matches.isEmpty()) {
 					toast("ERROR: No results"); // TODO
 				} else {
 					// TODO: we just take the first result for the time being
+					// TODO: confidence scores support is in API 14
 					String result = matches.iterator().next();
-					setUiResult(result);
-					addEntry(mPhrase, mLang, getDistance(mPhrase, result), result);
+					int dist = Utils.phraseDistance(mPhrase, result);
+					setUiResult(mLang, result, dist);
+					addEntry(mPhrase, mLang, dist, result);
 				}
 			}
 
