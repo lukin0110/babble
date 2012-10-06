@@ -1,5 +1,10 @@
 package be.lukin.android.lang;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import be.lukin.android.lang.provider.Phrase;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -70,6 +75,38 @@ public class Utils {
 		}
 		c.close();
 		return value;
+	}
+
+
+	// TODO: add restriction by timestamp
+	public static Map<String, Double> getLangToDist(Context context) {
+		Map<String, Double> langToDist = new HashMap<String, Double>();
+		Map<String, Integer> langToCount = new HashMap<String, Integer>();
+		Cursor c = context.getContentResolver().query(
+				Phrase.Columns.CONTENT_URI,
+				new String[] { Phrase.Columns.LANG, Phrase.Columns.DIST },
+				null,
+				null,
+				null);
+		while (c.moveToNext()) {
+			String lang = c.getString(0);
+			Integer dist = c.getInt(1);
+			Double val = langToDist.get(lang);
+			if (val == null) {
+				val = (double) dist;
+				langToCount.put(lang, 1);
+			} else {
+				val += dist;
+				langToCount.put(lang, 1 + langToCount.get(lang));
+			}
+			langToDist.put(lang, val);
+		}
+		c.close();
+
+		for (String lang : langToDist.keySet()) {
+			langToDist.put(lang, langToDist.get(lang) / langToCount.get(lang));
+		}
+		return langToDist;
 	}
 
 

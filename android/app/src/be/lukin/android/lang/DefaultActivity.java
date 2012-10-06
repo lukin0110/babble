@@ -102,17 +102,25 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private List<PhraseItem> getPhrases() {
 		List<PhraseItem> phrases = new ArrayList<PhraseItem>();
-		phrases.add(new PhraseItem("Vamos a la playa!", "es-MX"));
-		phrases.add(new PhraseItem("Tiene arroz con pollo?", "es-AR"));
+		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en-US"));
+		phrases.add(new PhraseItem("Three beers please", "en-US"));
+		phrases.add(new PhraseItem("These bears are unbearable", "en-US"));
+		phrases.add(new PhraseItem("Vamos a la playa!", "es-ES"));
+		phrases.add(new PhraseItem("¿Cómo te llamas?", "es-ES"));
+		phrases.add(new PhraseItem("Tiene arroz con pollo?", "es-ES"));
 		phrases.add(new PhraseItem("Cogito ergo sum", "Latin"));
 		phrases.add(new PhraseItem("Homo homini lupus est", "Latin"));
 		phrases.add(new PhraseItem("Белеет парус одинокий. В тумане моря голубом!", "ru-RU"));
 		phrases.add(new PhraseItem("Октябрь уж наступил — уж роща отряхает", "ru-RU"));
-		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en-US"));
 		phrases.add(new PhraseItem("Talpra magyar, hí a haza! Itt az idő, most vagy soha!", "hu-HU"));
+		phrases.add(new PhraseItem("Jó napot kívánok", "hu-HU"));
+		phrases.add(new PhraseItem("Köszönöm szépen", "hu-HU"));
 		phrases.add(new PhraseItem("Nett, Sie kennen zu lernen.", "de-DE"));
 		phrases.add(new PhraseItem("Gibt es hier jemanden, der Englisch spricht?", "de-DE"));
 		phrases.add(new PhraseItem("Helposti saatu on helposti menetetty", "fi-FI"));
+		phrases.add(new PhraseItem("Hyvää ruokahalua!", "fi-FI"));
+		phrases.add(new PhraseItem("Haluaisitko tanssia kanssani?", "fi-FI"));
+		phrases.add(new PhraseItem("Hyvää joulua ja onnellista uutta vuotta", "fi-FI"));
 		phrases.add(new PhraseItem("Ik heb mijn bagage verloren.", "nl-NL"));
 		phrases.add(new PhraseItem("Mag ik uw telefoon gebruiken?", "nl-NL"));
 		return phrases;

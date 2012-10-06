@@ -1,7 +1,10 @@
 package be.lukin.android.lang;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
@@ -19,34 +22,49 @@ public class LanguagesBarChart extends AbstractChart {
 		return "Languages bar chart";
 	}
 
+
 	public String getDesc() {
 		return "Description";
 	}
 
-	public Intent execute(Context context) {
-		String[] titles = new String[] { "last week", "this week" };
-		List<double[]> values = new ArrayList<double[]>();
 
-		// TODO: fetch this data from the DB
-		values.add(new double[] { 5230, 7300, 9240, 10540, 7900, 9200, 12030, 11200, 9500, 10500 });
-		values.add(new double[] { 14230, 12300, 14240, 15244, 15900, 19200, 22030, 21200, 19500, 15500 });
+	public Intent execute(Context context) {
+		Map<String, Double> map = Utils.getLangToDist(context);
+		Log.i(map.toString());
+
+		String[] titles = new String[] { "yesterday", "today" };
+
+		List<double[]> values = new ArrayList<double[]>();
+		double[] vals1 = new double[map.size()];
+		double[] vals2 = new double[map.size()];
+
+		List<String> langs = new ArrayList<String>(map.keySet());
+		Collections.sort(langs);
 
 		int[] colors = new int[] { Color.GREEN, Color.BLUE};
 		XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
 		renderer.setOrientation(Orientation.VERTICAL);
-		setChartSettings(renderer, "Title", "Lang", "Performance", 0.5, 10.5, 0, 24000, Color.GRAY, Color.LTGRAY);
 		renderer.setXLabels(1);
-		renderer.setYLabels(10);
-		renderer.addXTextLabel(1, "en");
-		renderer.addXTextLabel(2, "ru");
-		renderer.addXTextLabel(3, "de");
-		renderer.addXTextLabel(4, "es");
-		renderer.addXTextLabel(5, "fi");
-		renderer.addXTextLabel(6, "nl");
-		renderer.addXTextLabel(7, "fr");
-		renderer.addXTextLabel(8, "it");
-		renderer.addXTextLabel(9, "pt");
-		renderer.addXTextLabel(10, "hu");
+		renderer.setYLabels(map.size());
+
+		int counter = 0;
+		double max = 0;
+		for (String lang : langs) {
+			if (max < map.get(lang)) {
+				max = map.get(lang);
+			}
+			renderer.addXTextLabel(counter+1, lang);
+			vals1[counter] = (map.get(lang) - counter);
+			vals2[counter] = map.get(lang);
+			counter++;
+		}
+
+		// TODO: set max distance
+		setChartSettings(renderer, "Title", "Lang", "Performance", 0.5, map.size() + 1, 0, max, Color.GRAY, Color.LTGRAY);
+
+		values.add(vals1);
+		values.add(vals2);
+
 		int length = renderer.getSeriesRendererCount();
 		for (int i = 0; i < length; i++) {
 			SimpleSeriesRenderer seriesRenderer = renderer.getSeriesRendererAt(i);
