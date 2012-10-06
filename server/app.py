@@ -9,7 +9,7 @@ from language import pages
 # loading the mappings
 mappings = [
     ('/', pages.IndexPage),
-    ('/list/sentences', pages.SentencesPage),
+    ('/sentences', pages.SentencesPage),
     ('/list/history', pages.HistoryPage),
     ('/save/assessment', pages.SaveAssessment),
     ('/import', pages.TempPage)

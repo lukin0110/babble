@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Jo'
 
-[
+list = [
     {'en': 'Where is the library?',
      'nl': 'Waar is de bibliotheek?',
      'es': '¿Dónde está la biblioteca?',

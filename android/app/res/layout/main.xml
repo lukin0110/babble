@@ -4,30 +4,55 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/list"
+    <TextView
+        android:id="@+id/tvPhrase"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fastScrollEnabled="true" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="@color/blue"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPhrase"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="@color/android_green"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvResult"
+        android:background="@color/grey2"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/llMicrophone"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="right"
-        android:layout_margin="10dp"
         android:background="@color/transparent"
         android:orientation="vertical"
-        android:padding="2dp" >
+        android:padding="4dp" >
 
         <be.lukin.android.lang.MicButton
             android:id="@+id/buttonMicrophone"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_margin="2dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
             android:background="@drawable/button_mic"
             android:contentDescription="@string/buttonMicrophoneContentDescription"
             android:gravity="center"

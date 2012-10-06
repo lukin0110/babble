@@ -7,7 +7,7 @@ class User(db.Model):
     date_created = db.DateProperty()
 
 class Sentence(db.Model):
-    value = db.StringProperty(required=True)
+    value = db.StringProperty(required=False)
     group = db.StringProperty(required=True)
     locale = db.StringProperty(required=True)
 

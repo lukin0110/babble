@@ -6,31 +6,30 @@ import android.speech.RecognitionListener;
 import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.format.Time;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CursorTreeAdapter;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import android.app.ActionBar;
-import android.content.AsyncQueryHandler;
 import android.content.ComponentName;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.preference.PreferenceManager;
 import be.lukin.android.lang.Constants.State;
+import be.lukin.android.lang.provider.Phrase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DefaultActivity extends AbstractRecognizerActivity {
@@ -50,45 +49,27 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private SpeechRecognizer mSr;
 
-	// TODO
-	private static final String SORT_ORDER_TIMESTAMP = "";
+	private TextView mTvPhrase;
+	private TextView mTvResult;
+	private TextView mTvScore;
 
-	private final class QueryHandler extends AsyncQueryHandler {
-		private CursorTreeAdapter mAdapter;
+	private final List<PhraseItem> mPhrases = getPhrases();
 
-		public QueryHandler(Context context, CursorTreeAdapter adapter) {
-			super(context.getContentResolver());
-			this.mAdapter = adapter;
+	private static final Uri CONTENT_URI = Phrase.Columns.CONTENT_URI;
+
+
+	private class PhraseItem {
+		private final String mText;
+		private final String mLang;
+		public PhraseItem(String text, String lang) {
+			mText = text;
+			mLang = lang;
 		}
-
-		@Override
-		protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-			updateUi();
+		public String getText() {
+			return mText;
 		}
-
-		protected void onDeleteComplete(int token, Object cookie, int result) {
-			updateUi();
-		}
-
-		protected void onInsertComplete(int token, Object cookie, Uri uri) {
-			updateUi();
-		}
-
-		public void insert(Uri contentUri, ContentValues values) {
-			startInsert(1, null, contentUri, values);
-		}
-
-		public void delete(Uri contentUri, long key) {
-			Uri uri = ContentUris.withAppendedId(contentUri, key);
-			startDelete(1, null, uri, null, null);
-		}
-
-		private void updateUi() {
-			if (mActionBar != null) {
-				int count = mAdapter.getGroupCount();
-				mActionBar.setSubtitle(
-						mRes.getQuantityString(R.plurals.numberOfInputs, count, count));
-			}
+		public String getLang() {
+			return mLang;
 		}
 	}
 
@@ -98,16 +79,36 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+
 		mRes = getResources();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+		mTvPhrase = (TextView) findViewById(R.id.tvPhrase);
+		mTvResult = (TextView) findViewById(R.id.tvResult);
+		mTvScore = (TextView) findViewById(R.id.tvScore);
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
-
-		//registerForContextMenu(mListView);
 
 		mActionBar = getActionBar();
 		mActionBar.setHomeButtonEnabled(false);
+	}
 
+
+	private List<PhraseItem> getPhrases() {
+		List<PhraseItem> phrases = new ArrayList<PhraseItem>();
+		phrases.add(new PhraseItem("Vamos a la playa!", "es-MX"));
+		phrases.add(new PhraseItem("Tiene arroz con pollo?", "es-AR"));
+		phrases.add(new PhraseItem("Cogito ergo sum", "Latin"));
+		phrases.add(new PhraseItem("Homo homini lupus est", "Latin"));
+		phrases.add(new PhraseItem("Белеет парус одинокий. В тумане моря голубом!", "ru-RU"));
+		phrases.add(new PhraseItem("Октябрь уж наступил — уж роща отряхает", "ru-RU"));
+		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en-US"));
+		phrases.add(new PhraseItem("Talpra magyar, hí a haza! Itt az idő, most vagy soha!", "hu-HU"));
+		phrases.add(new PhraseItem("Nett, Sie kennen zu lernen.", "de-DE"));
+		phrases.add(new PhraseItem("Gibt es hier jemanden, der Englisch spricht?", "de-DE"));
+		phrases.add(new PhraseItem("Helposti saatu on helposti menetetty", "fi-FI"));
+		phrases.add(new PhraseItem("Ik heb mijn bagage verloren.", "nl-NL"));
+		phrases.add(new PhraseItem("Mag ik uw telefoon gebruiken?", "nl-NL"));
+		return phrases;
 	}
 
 
@@ -136,9 +137,7 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 			if (mSr == null) {
 				toast(getString(R.string.errorNoDefaultRecognizer));
 			} else {
-				Intent intentRecognizer = createRecognizerIntent(
-						mPrefs.getString(getString(R.string.keyLanguage), getString(R.string.defaultLanguage)));
-				setUpRecognizerGui(mSr, intentRecognizer);
+				setUpRecognizerGui(mSr);
 			}
 		}
 	}
@@ -191,8 +190,12 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		// TODO: move this to the phrases activity
 		case R.id.menuMainSortByTimestamp:
-			sort(item, SORT_ORDER_TIMESTAMP);
+			//sort(item, SORT_ORDER_TIMESTAMP);
+			return true;
+		case R.id.menuMainPhrases:
+			startActivity(new Intent(this, PhrasesActivity.class));
 			return true;
 		case R.id.menuMainSettings:
 			startActivity(new Intent(this, SettingsActivity.class));
@@ -234,14 +237,16 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private void setUpRecognizerGui(final SpeechRecognizer sr, final Intent intentRecognizer) {
+	private void setUpRecognizerGui(final SpeechRecognizer sr) {
 		mButtonMicrophone.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (mState == State.INIT || mState == State.ERROR) {
+					PhraseItem phrase = getPhrase();
+					setUiInput(phrase.getText());
 					if (mAudioCue != null) {
 						mAudioCue.playStartSoundAndSleep();
 					}
-					startListening(sr, intentRecognizer);
+					startListening(sr, phrase.getText(), phrase.getLang());
 				}
 				else if (mState == State.LISTENING) {
 					sr.stopListening();
@@ -284,7 +289,57 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private void startListening(final SpeechRecognizer sr, Intent intentRecognizer) {
+	private void addEntry(String text, String lang, int dist, String result) {
+		Time now = new Time();
+		now.setToNow();
+		long timestamp = now.toMillis(false);
+		ContentValues values = new ContentValues();
+		values.put(Phrase.Columns.TIMESTAMP, timestamp);
+		values.put(Phrase.Columns.TEXT, text);
+		values.put(Phrase.Columns.LANG, lang);
+		values.put(Phrase.Columns.DIST, dist);
+		values.put(Phrase.Columns.RESULT, result);
+		insert(CONTENT_URI, values);
+	}
+
+
+	// TODO: dummy
+	private PhraseItem getPhrase() {
+		return mPhrases.get(getRandom(mPhrases.size()-1));
+	}
+
+
+	private int getRandom(int max) {
+		return (int)(Math.random() * (max + 1));
+	}
+
+
+	private void setUiInput(String text) {
+		mTvPhrase.setText(text);
+		mTvResult.setText("");
+		mTvScore.setVisibility(View.GONE);
+	}
+
+
+	private void setUiResult(String langCode, String resultText, int dist) {
+		mTvResult.setText(resultText);
+		Locale l = new Locale(langCode);
+		String distText = "Sorry, but no native speaker of " + l.getDisplayName(l) + " (" + langCode + ") would understand you...";
+		if (dist == 0) {
+			distText = "Perfect!";
+		} else if (dist < 10) {
+			distText = "Pretty good";
+		}
+		mTvScore.setText(distText);
+		mTvScore.setVisibility(View.VISIBLE);
+	}
+
+
+	private void startListening(final SpeechRecognizer sr, String phrase, String lang) {
+
+		final String mPhrase = phrase;
+		final String mLang = lang;
+		Intent intentRecognizer = createRecognizerIntent(lang);
 
 		sr.setRecognitionListener(new RecognitionListener() {
 
@@ -366,10 +421,18 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 			@Override
 			public void onResults(Bundle results) {
 				ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-				// TODO: confidence scores support is only in API 14
 				mState = State.INIT;
 				mButtonMicrophone.setState(mState);
-				toast(matches.toString()); // TODO: populate the list instead
+				if (matches.isEmpty()) {
+					toast("ERROR: No results"); // TODO
+				} else {
+					// TODO: we just take the first result for the time being
+					// TODO: confidence scores support is in API 14
+					String result = matches.iterator().next();
+					int dist = Utils.phraseDistance(mPhrase, result);
+					setUiResult(mLang, result, dist);
+					addEntry(mPhrase, mLang, dist, result);
+				}
 			}
 
 			@Override

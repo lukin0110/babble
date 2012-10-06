@@ -4,19 +4,53 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.util.Linkify;
 
 public class Utils {
 
 	private Utils() {}
+
+
+	// TODO: delete punctuation and spaces
+	// TODO: scale by string lengths
+	public static int phraseDistance(String s1, String s2) {
+		s1 = s1.toLowerCase();
+		s2 = s2.toLowerCase();
+		return computeDistance(s1, s2);
+	}
+
+
+	/**
+	 * Originates from: http://rosettacode.org/wiki/Levenshtein_distance#Java
+	 */
+	private static int computeDistance(String s1, String s2) {
+		int[] costs = new int[s2.length() + 1];
+		for (int i = 0; i <= s1.length(); i++) {
+			int lastValue = i;
+			for (int j = 0; j <= s2.length(); j++) {
+				if (i == 0)
+					costs[j] = j;
+				else {
+					if (j > 0) {
+						int newValue = costs[j - 1];
+						if (s1.charAt(i - 1) != s2.charAt(j - 1))
+							newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+						costs[j - 1] = lastValue;
+						lastValue = newValue;
+					}
+				}
+			}
+			if (i > 0)
+				costs[s2.length()] = lastValue;
+		}
+		return costs[s2.length()];
+	}
 
 
 	/**
@@ -88,34 +122,6 @@ public class Utils {
 		})
 		.setMessage(s)
 		.create();
-	}
-
-
-	public static AlertDialog getGoToStoreDialogWithThreeButtons(final Context context, String msg, final Uri uri) {
-		final SpannableString s = new SpannableString(msg);
-		Linkify.addLinks(s, Linkify.ALL);
-		return new AlertDialog.Builder(context)
-		.setPositiveButton(context.getString(R.string.buttonGoToStore), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-			}
-		})
-		.setNegativeButton(context.getString(R.string.buttonNever), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putBoolean(context.getString(R.string.prefFirstTime), false);
-				editor.commit();
-				dialog.cancel();
-			}
-		})
-		.setNeutralButton(context.getString(R.string.buttonLater), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
-			}})
-			.setMessage(s)
-			.create();
 	}
 
 

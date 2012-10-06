@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.lukin.android.lang"
-    android:versionCode="101"
-    android:versionName="0.1.01" >
+    android:versionCode="103"
+    android:versionName="0.1.03" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -25,9 +25,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".PhrasesActivity"
+            android:label="@string/labelPhrases" >
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:label="@string/labelSettings" >
         </activity>
+
+        <provider
+            android:name=".provider.LangContentProvider"
+            android:authorities="be.lukin.android.lang.provider.LangContentProvider"
+            android:exported="false" />
     </application>
 
 </manifest>
