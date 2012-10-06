@@ -96,3 +96,24 @@ class SaveAssessment(webapp.RequestHandler):
         self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
         self.response.out.write('TEST') # json.dumps({"test": "d"}, indent=4))
 
+class SaveAssessmentGroup(webapp.RequestHandler):
+    def get(self): # it's easier to test this functionality with a get method
+        self.post()
+
+    def post(self):
+        # localhost:8080/save/assessments?assessments=[{"phoneId":"32432143215312","sentenceId":"2","score":77,"resultFromTTS":"Dit is een test","date_created":4321432}]
+
+        print self.request.get('assessments')
+        assessments=json.loads(self.request.get('assessments'))
+
+        for assesment in assessments:
+            self.response.out.write(assesment['phoneId'])
+            self.response.out.write(assesment['sentenceId'])
+            self.response.out.write(assesment['score'])
+            self.response.out.write(assesment['resultFromTTS'])
+            self.response.out.write(assesment['date_created'])
+
+            Assessment(phoneId = assesment['phoneId'],sentenceId = assesment['sentenceId'],resultFromTTS=assesment['resultFromTTS'],score=assesment['score']).save()
+
+        self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
+        self.response.out.write('TEST') # json.dumps({"test": "d"}, indent=4))

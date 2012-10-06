@@ -13,6 +13,7 @@ mappings = [
     ('/sentences/(.*)', pages.SingleSentencesPage),
     ('/list/history', pages.HistoryPage),
     ('/save/assessment', pages.SaveAssessment),
+    ('/save/assessments', pages.SaveAssessmentGroup),
     ('/import', pages.TempPage)
     ]
 
