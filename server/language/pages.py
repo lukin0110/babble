@@ -74,17 +74,25 @@ class HistoryPage(webapp.RequestHandler):
         values = {}
 
 class SaveAssessment(webapp.RequestHandler):
-    def get(self): # its easier to test this functionality with a get method
+    def get(self): # it's easier to test this functionality with a get method
+        # self.response.out.write('TEST')
         self.post()
 
     def post(self):
-        phoneId = self.get('phoneId')
-        sentenceId = self.get('sentenceId')
-        score = self.get('score')
-        resultFromTTS = self.get('resultFromTTS')
-        date_created = self.get('date_created')
-        Assessment(phoneId = phoneId,sentenceId = sentenceId,resultFromTTS=resultFromTTS,score=score,date_created=date_created).save()
+        phoneId = self.request.get('phoneId')
+        sentenceId = self.request.get('sentenceId')
+        score = int(self.request.get('score'))
+        resultFromTTS = self.request.get('resultFromTTS')
+        date_created = self.request.get('date_created')
 
-    self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
-        self.response.out.write(json.dumps({"test": "d"}, indent=4))
+        self.response.out.write(phoneId)
+        self.response.out.write(sentenceId)
+        self.response.out.write(score)
+        self.response.out.write(resultFromTTS)
+        self.response.out.write(date_created)
+
+        Assessment(phoneId = phoneId,sentenceId = sentenceId,resultFromTTS=resultFromTTS,score=score).save()
+
+        self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
+        self.response.out.write('TEST') # json.dumps({"test": "d"}, indent=4))
 
