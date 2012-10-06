@@ -82,7 +82,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
 		mActionBar = getActionBar();
-		mActionBar.setHomeButtonEnabled(false);
+		//mActionBar.setHomeButtonEnabled(false);
+
+		new DownloadSentencesTask().execute();
 	}
 
 
@@ -114,8 +116,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 				setUpRecognizerGui(mSr);
 			}
 		}
-
-		new DownloadSentencesTask().execute();
 	}
 
 
