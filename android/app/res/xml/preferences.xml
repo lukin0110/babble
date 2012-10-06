@@ -29,11 +29,11 @@
 
     <PreferenceCategory android:title="@string/titleCategoryLinks" >
         <Preference
-            android:summary="@string/summaryLangProject"
-            android:title="@string/titleLangProject" >
+            android:summary="@string/summaryBabbleProject"
+            android:title="@string/titleBabbleProject" >
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="@string/urlLangProject" />
+                android:data="@string/urlBabbleProject" />
         </Preference>
         <Preference
             android:summary="@string/summaryVHackProject"

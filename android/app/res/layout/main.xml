@@ -22,7 +22,7 @@
         android:layout_below="@+id/tvPhrase"
         android:gravity="center"
         android:padding="10dp"
-        android:text=""
+        android:text="@string/stateInit"
         android:textColor="@color/android_green"
         android:textSize="24sp" />
 
