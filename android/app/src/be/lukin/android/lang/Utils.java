@@ -21,12 +21,14 @@ public class Utils {
 
 	private Utils() {}
 
+	private static final String PUNCT = "\\p{Punct}";
+
 
 	// TODO: delete punctuation and spaces
 	// TODO: scale by string lengths
 	public static int phraseDistance(String s1, String s2) {
-		s1 = s1.toLowerCase();
-		s2 = s2.toLowerCase();
+		s1 = s1.toLowerCase().replaceAll(PUNCT, "");
+		s2 = s2.toLowerCase().replaceAll(PUNCT, "");
 		return computeDistance(s1, s2);
 	}
 

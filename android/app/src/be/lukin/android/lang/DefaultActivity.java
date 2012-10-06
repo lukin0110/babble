@@ -102,27 +102,27 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private List<PhraseItem> getPhrases() {
 		List<PhraseItem> phrases = new ArrayList<PhraseItem>();
-		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en-US"));
-		phrases.add(new PhraseItem("Three beers please", "en-US"));
-		phrases.add(new PhraseItem("These bears are unbearable", "en-US"));
-		phrases.add(new PhraseItem("Vamos a la playa!", "es-ES"));
-		phrases.add(new PhraseItem("¿Cómo te llamas?", "es-ES"));
-		phrases.add(new PhraseItem("Tiene arroz con pollo?", "es-ES"));
+		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en"));
+		phrases.add(new PhraseItem("Three beers please", "en"));
+		phrases.add(new PhraseItem("These bears are unbearable", "en"));
+		phrases.add(new PhraseItem("Vamos a la playa!", "es"));
+		phrases.add(new PhraseItem("¿Cómo te llamas?", "es"));
+		phrases.add(new PhraseItem("Tiene arroz con pollo?", "es"));
 		phrases.add(new PhraseItem("Cogito ergo sum", "Latin"));
 		phrases.add(new PhraseItem("Homo homini lupus est", "Latin"));
-		phrases.add(new PhraseItem("Белеет парус одинокий. В тумане моря голубом!", "ru-RU"));
-		phrases.add(new PhraseItem("Октябрь уж наступил — уж роща отряхает", "ru-RU"));
-		phrases.add(new PhraseItem("Talpra magyar, hí a haza! Itt az idő, most vagy soha!", "hu-HU"));
-		phrases.add(new PhraseItem("Jó napot kívánok", "hu-HU"));
-		phrases.add(new PhraseItem("Köszönöm szépen", "hu-HU"));
-		phrases.add(new PhraseItem("Nett, Sie kennen zu lernen.", "de-DE"));
-		phrases.add(new PhraseItem("Gibt es hier jemanden, der Englisch spricht?", "de-DE"));
-		phrases.add(new PhraseItem("Helposti saatu on helposti menetetty", "fi-FI"));
-		phrases.add(new PhraseItem("Hyvää ruokahalua!", "fi-FI"));
-		phrases.add(new PhraseItem("Haluaisitko tanssia kanssani?", "fi-FI"));
-		phrases.add(new PhraseItem("Hyvää joulua ja onnellista uutta vuotta", "fi-FI"));
-		phrases.add(new PhraseItem("Ik heb mijn bagage verloren.", "nl-NL"));
-		phrases.add(new PhraseItem("Mag ik uw telefoon gebruiken?", "nl-NL"));
+		phrases.add(new PhraseItem("Белеет парус одинокий. В тумане моря голубом!", "ru"));
+		phrases.add(new PhraseItem("Октябрь уж наступил — уж роща отряхает", "ru"));
+		phrases.add(new PhraseItem("Talpra magyar, hí a haza! Itt az idő, most vagy soha!", "hu"));
+		phrases.add(new PhraseItem("Jó napot kívánok", "hu"));
+		phrases.add(new PhraseItem("Köszönöm szépen", "hu"));
+		phrases.add(new PhraseItem("Nett, Sie kennen zu lernen.", "de"));
+		phrases.add(new PhraseItem("Gibt es hier jemanden, der Englisch spricht?", "de"));
+		phrases.add(new PhraseItem("Helposti saatu on helposti menetetty", "fi"));
+		phrases.add(new PhraseItem("Hyvää ruokahalua!", "fi"));
+		phrases.add(new PhraseItem("Haluaisitko tanssia kanssani?", "fi"));
+		phrases.add(new PhraseItem("Hyvää joulua ja onnellista uutta vuotta", "fi"));
+		phrases.add(new PhraseItem("Ik heb mijn bagage verloren.", "nl"));
+		phrases.add(new PhraseItem("Mag ik uw telefoon gebruiken?", "nl"));
 		return phrases;
 	}
 
@@ -334,6 +334,13 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	}
 
 
+	private void setUiError() {
+		mTvPhrase.setText("");
+		mTvResult.setText(getString(R.string.stateInit));
+		mTvScore.setVisibility(View.GONE);
+	}
+
+
 	private void setUiInput(String text) {
 		mTvPhrase.setText(text);
 		mTvResult.setText("");
@@ -386,6 +393,7 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 			public void onError(int error) {
 				mState = State.ERROR;
 				mButtonMicrophone.setState(mState);
+				setUiError();
 				if (mAudioCue != null) {
 					mAudioCue.playErrorSound();
 				}

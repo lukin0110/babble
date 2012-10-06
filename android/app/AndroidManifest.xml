@@ -10,7 +10,7 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" >
     </uses-permission>
-    <uses-permission android:name="android.permission.INTERNET">
+    <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
 
     <application
@@ -34,7 +34,9 @@
             android:name=".SettingsActivity"
             android:label="@string/labelSettings" >
         </activity>
-        <activity android:name="org.achartengine.GraphicalActivity" />
+        <activity
+            android:name="org.achartengine.GraphicalActivity"
+            android:label="@string/labelLanguagesPlot" />
 
         <provider
             android:name=".provider.LangContentProvider"

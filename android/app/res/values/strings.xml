@@ -13,7 +13,7 @@
     <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
     <string name="prefRecognizerServiceCls" translatable="false">prefRecognizerServiceCls</string>
     <string name="labelPhrases">Phrases</string>
-    <string name="labelLanguagesPlot">Plot</string>
+    <string name="labelLanguagesPlot">Average error level</string>
     <string name="labelSettings">Settings</string>
     <string name="error">Error</string>
     <string name="errorResultAudioError">Audio recording failed. Maybe another app is currently recording.</string>

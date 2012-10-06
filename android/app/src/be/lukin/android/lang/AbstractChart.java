@@ -14,10 +14,8 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-/**
- * An abstract class for the demo charts to extend. It contains some methods for
- * building datasets and renderers.
- */
+import android.graphics.Color;
+
 public abstract class AbstractChart {
 
 	/**
@@ -139,6 +137,7 @@ public abstract class AbstractChart {
 	 * @param values the values
 	 * @return the category series
 	 */
+	/*
 	protected CategorySeries buildCategoryDataset(String title, double[] values) {
 		CategorySeries series = new CategorySeries(title);
 		int k = 0;
@@ -148,6 +147,7 @@ public abstract class AbstractChart {
 
 		return series;
 	}
+	 */
 
 	/**
 	 * Builds a multiple category series using the provided values.
@@ -156,6 +156,7 @@ public abstract class AbstractChart {
 	 * @param values the values
 	 * @return the category series
 	 */
+	/*
 	protected MultipleCategorySeries buildMultipleCategoryDataset(String title,
 			List<String[]> titles, List<double[]> values) {
 		MultipleCategorySeries series = new MultipleCategorySeries(title);
@@ -166,6 +167,7 @@ public abstract class AbstractChart {
 		}
 		return series;
 	}
+	 */
 
 	/**
 	 * Builds a category renderer to use the provided colors.
@@ -173,6 +175,7 @@ public abstract class AbstractChart {
 	 * @param colors the colors
 	 * @return the category renderer
 	 */
+	/*
 	protected DefaultRenderer buildCategoryRenderer(int[] colors) {
 		DefaultRenderer renderer = new DefaultRenderer();
 		renderer.setLabelsTextSize(15);
@@ -185,6 +188,7 @@ public abstract class AbstractChart {
 		}
 		return renderer;
 	}
+	 */
 
 	/**
 	 * Builds a bar multiple series dataset using the provided values.
@@ -216,10 +220,13 @@ public abstract class AbstractChart {
 	 */
 	protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-		//renderer.setAxisTitleTextSize(16);
-		//renderer.setChartTitleTextSize(20);
-		renderer.setLabelsTextSize(15);
-		//renderer.setLegendTextSize(15);
+		renderer.setAxisTitleTextSize(16);
+		renderer.setChartTitleTextSize(20);
+		renderer.setLabelsTextSize(20);
+		renderer.setLegendTextSize(15);
+		renderer.setInScroll(false);
+		renderer.setBackgroundColor(Color.WHITE);
+		renderer.setExternalZoomEnabled(false);
 		int length = colors.length;
 		for (int i = 0; i < length; i++) {
 			SimpleSeriesRenderer r = new SimpleSeriesRenderer();
