@@ -4,21 +4,36 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/lvPhrases"
+    <TextView
+        android:id="@+id/tvPhrase"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fastScrollEnabled="true" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="@color/blue"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPhrase"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="@color/android_green"
+        android:textSize="30sp" />
 
     <LinearLayout
         android:id="@+id/llMicrophone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="right"
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         android:background="@color/transparent"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="2dp" >
 

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import android.app.ActionBar;
 import android.content.ComponentName;
@@ -46,20 +47,55 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private SpeechRecognizer mSr;
 
+	private TextView mTvPhrase;
+	private TextView mTvResult;
+
+	private final List<PhraseItem> mPhrases = getPhrases();
+
 	private static final Uri CONTENT_URI = Phrase.Columns.CONTENT_URI;
+
+
+	private class PhraseItem {
+		private final String mText;
+		private final String mLang;
+		public PhraseItem(String text, String lang) {
+			mText = text;
+			mLang = lang;
+		}
+		public String getText() {
+			return mText;
+		}
+		public String getLang() {
+			return mLang;
+		}
+	}
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+
 		mRes = getResources();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+		mTvPhrase = (TextView) findViewById(R.id.tvPhrase);
+		mTvResult = (TextView) findViewById(R.id.tvResult);
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
 		mActionBar = getActionBar();
 		mActionBar.setHomeButtonEnabled(false);
+	}
+
+
+	private List<PhraseItem> getPhrases() {
+		List<PhraseItem> phrases = new ArrayList<PhraseItem>();
+		phrases.add(new PhraseItem("Vamos a la playa", "es-MX"));
+		phrases.add(new PhraseItem("Cogito ergo sum", "Latin"));
+		phrases.add(new PhraseItem("Белеет парус одинокий. В тумане моря голубом!", "ru-RU"));
+		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en-US"));
+		return phrases;
 	}
 
 
@@ -88,9 +124,7 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 			if (mSr == null) {
 				toast(getString(R.string.errorNoDefaultRecognizer));
 			} else {
-				Intent intentRecognizer = createRecognizerIntent(
-						mPrefs.getString(getString(R.string.keyLanguage), getString(R.string.defaultLanguage)));
-				setUpRecognizerGui(mSr, intentRecognizer);
+				setUpRecognizerGui(mSr);
 			}
 		}
 	}
@@ -190,15 +224,16 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private void setUpRecognizerGui(final SpeechRecognizer sr, final Intent intentRecognizer) {
+	private void setUpRecognizerGui(final SpeechRecognizer sr) {
 		mButtonMicrophone.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (mState == State.INIT || mState == State.ERROR) {
-					String phrase = getPhrase();
+					PhraseItem phrase = getPhrase();
+					setUiInput(phrase.getText());
 					if (mAudioCue != null) {
 						mAudioCue.playStartSoundAndSleep();
 					}
-					startListening(sr, intentRecognizer, phrase);
+					startListening(sr, phrase.getText(), phrase.getLang());
 				}
 				else if (mState == State.LISTENING) {
 					sr.stopListening();
@@ -252,14 +287,31 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 
 	// TODO: dummy
-	private String getPhrase() {
-		return "vamos a la playa";
+	private PhraseItem getPhrase() {
+		return mPhrases.get(getRandom(mPhrases.size()-1));
+	}
+
+	private int getRandom(int max) {
+		return (int)(Math.random() * ((max) + 1));
 	}
 
 
-	private void startListening(final SpeechRecognizer sr, Intent intentRecognizer, String phrase) {
+	private void setUiInput(String text) {
+		mTvPhrase.setText(text);
+		mTvResult.setText("");
+	}
+
+
+	private void setUiResult(String resultText) {
+		mTvResult.setText(resultText);
+	}
+
+
+	private void startListening(final SpeechRecognizer sr, String phrase, String lang) {
 
 		final String mPhrase = phrase;
+		final String mLang = lang;
+		Intent intentRecognizer = createRecognizerIntent(lang);
 
 		sr.setRecognitionListener(new RecognitionListener() {
 
@@ -344,10 +396,13 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 				// TODO: confidence scores support is only in API 14
 				mState = State.INIT;
 				mButtonMicrophone.setState(mState);
-				toast(matches.toString()); // TODO: populate the list instead
-				// TODO: fix
-				if (! matches.isEmpty()) {
-					addEntry(mPhrase, "lang", 123, matches.iterator().next());
+				if (matches.isEmpty()) {
+					toast("ERROR: No results"); // TODO
+				} else {
+					// TODO: we just take the first result for the time being
+					String result = matches.iterator().next();
+					setUiResult(result);
+					addEntry(mPhrase, mLang, 123, result);
 				}
 			}
 

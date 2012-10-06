@@ -44,8 +44,8 @@
     <string name="summaryAudioCues">Beep before and after recording</string>
     <string name="titleLangProject">project Lang</string>
     <string name="summaryLangProject">(maker of this app)</string>
-    <string name="titleVHackProject">project V Hack Android</string>
-    <string name="summaryVHackProject">V Hack Android Belgium 2012</string>
+    <string name="titleVHackProject">V Hack Android</string>
+    <string name="summaryVHackProject">V Hack Android (Belgium 2012)</string>
     <string name="confirmDeleteEntry">Are you sure you want to delete entry \"%1$s\"?</string>
     <string name="buttonMicrophoneContentDescription">Press this button to speak an expression</string>
     <string name="buttonYes">Yes</string>
