@@ -2,9 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/menuMainSort"
+        android:id="@+id/menuMainPhrases"
         android:icon="@drawable/ic_menu_sort_by_size"
         android:showAsAction="ifRoom|withText"
+        android:title="@string/menuMainPhrases"/>
+    <item
+        android:id="@+id/menuMainSettings"
+        android:icon="@drawable/ic_menu_preferences"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menuMainSettings"/>
+    <item
+        android:id="@+id/menuMainSort"
+        android:icon="@drawable/ic_menu_sort_by_size"
         android:title="@string/menuMainSort">
         <menu>
             <group android:checkableBehavior="single" >
@@ -20,15 +29,5 @@
             </group>
         </menu>
     </item>
-    <item
-        android:id="@+id/menuMainPhrases"
-        android:icon="@drawable/ic_menu_share"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/menuMainPhrases"/>
-    <item
-        android:id="@+id/menuMainSettings"
-        android:icon="@drawable/ic_menu_preferences"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/menuMainSettings"/>
 
 </menu>

@@ -26,7 +26,7 @@ class TempPage(webapp.RequestHandler):
         importer.importSentences(data.list)
         self.response.out.write("Done ... ")
 
-class SentencesPage(webapp.RequestHandler):
+class AllSentencesPage(webapp.RequestHandler):
     def get(self):
         results = {}
         list = Sentence.all()
@@ -47,8 +47,28 @@ class SentencesPage(webapp.RequestHandler):
         for key, value in results.items():
             results2.append({"group":key, "values": value})
 
+        random.shuffle(results2)
         self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
         self.response.out.write(json.dumps({"list": results2}, indent=4))
+
+class SingleSentencesPage(webapp.RequestHandler):
+    def get(self, path):
+        locale = string.replace(path, "/", "")
+        results = []
+        list = Sentence.gql("WHERE locale = :paramLocale", paramLocale = locale)
+
+        for sentence in list:
+            results.append({
+                "id": sentence.key().id(),
+                "group": sentence.group,
+                "value": sentence.value,
+                "locale": sentence.locale
+            })
+
+        random.shuffle(results)
+        self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
+        self.response.out.write(json.dumps({"list": results}, indent=4))
+
 
 class HistoryPage(webapp.RequestHandler):
     def get(self):
