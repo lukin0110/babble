@@ -79,7 +79,6 @@ class SaveAssessment(webapp.RequestHandler):
         self.post()
 
     def post(self):
-        values = {}
         phoneId = self.get('phoneId')
         sentenceId = self.get('sentenceId')
         score = self.get('score')
