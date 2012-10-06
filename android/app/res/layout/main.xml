@@ -8,6 +8,7 @@
         android:id="@+id/tvPhrase"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:padding="10dp"
         android:text=""
@@ -25,25 +26,25 @@
         android:textColor="@color/android_green"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/tvScore"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvResult"
-        android:gravity="center"
-        android:padding="14dp"
-        android:textColor="@color/red"
-        android:textSize="16sp"
-        android:visibility="gone" />
-
     <LinearLayout
         android:id="@+id/llMicrophone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:background="@color/transparent"
         android:orientation="vertical"
-        android:padding="4dp" >
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <be.lukin.android.lang.MicButton
             android:id="@+id/buttonMicrophone"

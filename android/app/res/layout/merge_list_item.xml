@@ -1,31 +1,24 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <TextView
-        android:id="@+id/list_item_timestamp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/grey2"
-        android:textSize="14sp"
-        android:typeface="monospace" />
-
-    <TextView
         android:id="@+id/list_item_lang"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_item_timestamp"
-        android:text="Spanish"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/very_transparent"
         android:textSize="14sp"
         android:typeface="monospace" />
 
     <TextView
         android:id="@+id/list_item_text"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="true"
         android:layout_below="@+id/list_item_lang"
-        android:text="I want a beer"
+        android:padding="1dp"
         android:textColor="@color/blue"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/list_item_result"
@@ -33,19 +26,28 @@
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="true"
         android:layout_below="@+id/list_item_text"
-        android:text="Pretty good!"
+        android:padding="1dp"
         android:textColor="@color/android_green"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/list_item_dist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:textColor="@color/red"
+        android:textSize="14sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/list_item_timestamp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_below="@id/list_item_result"
-        android:text="123"
-        android:textColor="@color/red"
-        android:textSize="13sp"
+        android:layout_below="@+id/list_item_result"
+        android:textColor="@color/grey2"
+        android:textSize="14sp"
         android:typeface="monospace" />
 
     <TextView
