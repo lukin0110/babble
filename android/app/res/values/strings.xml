@@ -27,6 +27,7 @@
     <string name="menuMainSort">Sort …</string>
     <string name="menuMainSortByTimestamp">by time</string>
     <string name="menuMainSortByLang">by language</string>
+    <string name="menuMainSortByText">by text</string>
     <string name="menuMainSortByDist">by edit distance</string>
     <string name="menuMainPhrases">Phrases</string>
     <string name="menuLanguagesPlot">Plot</string>

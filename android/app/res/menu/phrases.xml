@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuMainSort"
+        android:icon="@drawable/ic_menu_sort_by_size"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menuMainSort">
+        <menu>
+            <group android:checkableBehavior="single" >
+                <item
+                    android:id="@+id/menuMainSortByTimestamp"
+                    android:title="@string/menuMainSortByTimestamp"/>
+                <item
+                    android:id="@+id/menuMainSortByLang"
+                    android:title="@string/menuMainSortByLang"/>
+                <item
+                    android:id="@+id/menuMainSortByText"
+                    android:title="@string/menuMainSortByText"/>
+                <item
+                    android:id="@+id/menuMainSortByDist"
+                    android:title="@string/menuMainSortByDist"/>
+            </group>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/menuLanguagesPlot"
+        android:icon="@drawable/ic_menu_sort_by_size"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menuLanguagesPlot"/>
+
+</menu>

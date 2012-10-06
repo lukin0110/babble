@@ -9,8 +9,6 @@ import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.format.Time;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import android.app.ActionBar;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -49,13 +46,11 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	private Resources mRes;
 	private SharedPreferences mPrefs;
 
-	private static String mCurrentSortOrder;
-
 	private MicButton mButtonMicrophone;
 
 	private AudioCue mAudioCue;
 
-	private ActionBar mActionBar;
+	//private ActionBar mActionBar;
 
 	private SpeechRecognizer mSr;
 
@@ -72,7 +67,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-
 		mRes = getResources();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -81,7 +75,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		mTvScore = (TextView) findViewById(R.id.tvScore);
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
-		mActionBar = getActionBar();
+		//mActionBar = getActionBar();
 		//mActionBar.setHomeButtonEnabled(false);
 
 		new DownloadSentencesTask().execute();
@@ -133,10 +127,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			mSr.cancel(); // TODO: do we need this, we do destroy anyway?
 			mSr.destroy();
 		}
-
-		SharedPreferences.Editor editor = mPrefs.edit();
-		editor.putString(getString(R.string.prefCurrentSortOrder), mCurrentSortOrder);
-		editor.commit();
 	}
 
 
@@ -154,11 +144,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-
-		// Indicate the current sort order by checking the corresponding radio button
-		int id = mPrefs.getInt(getString(R.string.prefCurrentSortOrderMenu), R.id.menuMainSortByTimestamp);
-		MenuItem menuItem = menu.findItem(id);
-		menuItem.setChecked(true);
 		return true;
 	}
 
@@ -166,10 +151,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		// TODO: move this to the phrases activity
-		case R.id.menuMainSortByTimestamp:
-			//sort(item, SORT_ORDER_TIMESTAMP);
-			return true;
 		case R.id.menuMainPhrases:
 			startActivity(new Intent(this, PhrasesActivity.class));
 			return true;
@@ -184,25 +165,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-
-	private void sort(MenuItem item, String sortOrder) {
-		//startQuery(sortOrder);
-		item.setChecked(true);
-		// Save the ID of the selected item.
-		// TODO: ideally this should be done in onDestory
-		SharedPreferences.Editor editor = mPrefs.edit();
-		editor.putInt(getString(R.string.prefCurrentSortOrderMenu), item.getItemId());
-		editor.commit();
-	}
-
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.cm_main, menu);
 	}
 
 

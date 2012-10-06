@@ -48,7 +48,8 @@
         android:layout_below="@+id/list_item_result"
         android:textColor="@color/grey2"
         android:textSize="14sp"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/list_item_id"

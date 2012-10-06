@@ -5,9 +5,11 @@ import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,9 +28,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 	// If non-null, this is the current filter the user has provided.
 	String mCurFilter;
 
-	private static final String SORT_ORDER_TEXT = Phrase.Columns.TEXT + " ASC";
-	private static final String SORT_ORDER_DIST = Phrase.Columns.DIST + " ASC";
-	private static final String SORT_ORDER_TIMESTAMP = Phrase.Columns.TIMESTAMP + " DESC";
+	private String mCurrentSortOrder;
 
 	private static final String[] mColumns = new String[] {
 		Phrase.Columns._ID,
@@ -39,7 +39,8 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		Phrase.Columns.RESULT
 	};
 
-	@Override public void onActivityCreated(Bundle savedInstanceState) {
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
 		int[] to = new int[] {
@@ -50,6 +51,9 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 				R.id.list_item_dist,
 				R.id.list_item_result
 		};
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		mCurrentSortOrder = prefs.getString(getString(R.string.prefCurrentSortOrder), Phrase.Columns.TIMESTAMP + " DESC");
 
 		// Give some text to display if there is no data.
 		setEmptyText(getString(R.string.emptylistPhrases));
@@ -69,7 +73,8 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		getLoaderManager().initLoader(0, null, this);
 	}
 
-	@Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Place an action bar item for searching.
 		MenuItem item = menu.add("Search");
 		item.setIcon(android.R.drawable.ic_menu_search);
@@ -93,6 +98,13 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 			return true;
 		}
 		mCurFilter = newFilter;
+		getLoaderManager().restartLoader(0, null, this);
+		return true;
+	}
+
+
+	public boolean changeSortOrder(String sortOrder) {
+		mCurrentSortOrder = sortOrder;
 		getLoaderManager().restartLoader(0, null, this);
 		return true;
 	}
@@ -124,7 +136,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		// Now create and return a CursorLoader that will take care of
 		// creating a Cursor for the data being displayed.
 
-		return new CursorLoader(getActivity(), baseUri, mColumns, null, null, SORT_ORDER_TIMESTAMP);
+		return new CursorLoader(getActivity(), baseUri, mColumns, null, null, mCurrentSortOrder);
 	}
 
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -138,12 +150,6 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		} else {
 			setListShownNoAnimation(true);
 		}
-
-		// TODO: display the number of phrases on the action bar
-		/*
-		mActionBar.setSubtitle(
-				mRes.getQuantityString(R.plurals.numberOfInputs, count, count));
-		 */
 	}
 
 	public void onLoaderReset(Loader<Cursor> loader) {

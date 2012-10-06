@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 public class DefaultActivity extends AbstractRecognizerActivity {
 
 	// Stop listening the user input after this period of milliseconds.
