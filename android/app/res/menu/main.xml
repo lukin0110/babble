@@ -7,6 +7,11 @@
         android:showAsAction="ifRoom|withText"
         android:title="@string/menuMainPhrases"/>
     <item
+        android:id="@+id/menuLanguagesPlot"
+        android:icon="@drawable/ic_menu_sort_by_size"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menuLanguagesPlot"/>
+    <item
         android:id="@+id/menuMainSettings"
         android:icon="@drawable/ic_menu_preferences"
         android:showAsAction="ifRoom|withText"
