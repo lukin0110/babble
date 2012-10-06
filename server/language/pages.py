@@ -47,14 +47,18 @@ class SentencesPage(webapp.RequestHandler):
             results2.append({"group":key, "values": value})
 
         self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
-        self.response.out.write(json.dumps({"list": results2}, indent=4, ensure_ascii=True))
+        self.response.out.write(json.dumps({"list": results2}, indent=4))
 
 class HistoryPage(webapp.RequestHandler):
     def get(self):
         values = {}
 
 class SaveAssessment(webapp.RequestHandler):
+    def get(self): # its easier to test this functionality with a get method
+        self.post()
+
     def post(self):
         values = {}
-
+        self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
+        self.response.out.write(json.dumps({"test": "d"}, indent=4))
 
