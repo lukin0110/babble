@@ -16,7 +16,7 @@ LOG = logging.getLogger("pages")
 class IndexPage(webapp.RequestHandler):
     def get(self):
         values = {
-            "var1":"hallo ññ",
+            "var1":"hallo",
         }
         self.response.out.write(template.render('templates/index.html', values))
 
