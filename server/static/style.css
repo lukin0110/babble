@@ -1,0 +1,6 @@
+/* Some simple styling */
+.intro{text-align: center;margin-top: 80px;}
+.intro h1{font-size: 100px;}
+.intro p{margin: 40px 0 30px 0;font-size: 35px;color: #ccc;line-height: 30px;}
+.youtube{margin-top: 35px;}
+.center{text-align: center;}
