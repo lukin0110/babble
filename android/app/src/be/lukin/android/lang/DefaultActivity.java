@@ -95,6 +95,10 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 		phrases.add(new PhraseItem("Cogito ergo sum", "Latin"));
 		phrases.add(new PhraseItem("Белеет парус одинокий. В тумане моря голубом!", "ru-RU"));
 		phrases.add(new PhraseItem("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en-US"));
+		phrases.add(new PhraseItem("Talpra magyar, hí a haza! Itt az idő, most vagy soha!", "hu-HU"));
+		phrases.add(new PhraseItem("Die Gläubigen haben in Genk im Laufe der Zeit Kirchen", "de-DE"));
+		phrases.add(new PhraseItem("Helposti saatu on helposti menetetty", "fi-FI"));
+		phrases.add(new PhraseItem("Genk is de hoofdplaats van het kieskanton en het gerechtelijk kanton Genk.", "nl-NL"));
 		return phrases;
 	}
 
@@ -291,8 +295,9 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 		return mPhrases.get(getRandom(mPhrases.size()-1));
 	}
 
+
 	private int getRandom(int max) {
-		return (int)(Math.random() * ((max) + 1));
+		return (int)(Math.random() * (max + 1));
 	}
 
 
@@ -304,6 +309,16 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 	private void setUiResult(String resultText) {
 		mTvResult.setText(resultText);
+	}
+
+
+	// TODO: implement proper edit distance
+	// It should not be sensitive to the length of the strings
+	private int getDistance(String str1, String str2) {
+		if (str1.toLowerCase().equals(str2.toLowerCase())) {
+			return 0;
+		}
+		return 100 / (str1.length() + str2.length());
 	}
 
 
@@ -402,7 +417,7 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 					// TODO: we just take the first result for the time being
 					String result = matches.iterator().next();
 					setUiResult(result);
-					addEntry(mPhrase, mLang, 123, result);
+					addEntry(mPhrase, mLang, getDistance(mPhrase, result), result);
 				}
 			}
 

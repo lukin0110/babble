@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.SimpleCursorAdapter;
 
@@ -27,6 +28,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 	String mCurFilter;
 
 	private static final String SORT_ORDER_TEXT = Phrase.Columns.TEXT + " ASC";
+	private static final String SORT_ORDER_DIST = Phrase.Columns.DIST + " ASC";
 	//private static final String SORT_ORDER_TIMESTAMP = Phrase.Columns.TEXT + " ASC";
 
 	private static final String[] mColumns = new String[] {
@@ -101,8 +103,9 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 	}
 
 	@Override public void onListItemClick(ListView l, View v, int position, long id) {
-		// Insert desired behavior here.
 		Log.i("FragmentComplexList", "Item clicked: " + id);
+		// TODO: launch the home activity to practice this phrase
+		// or read it with speech synthesizer
 	}
 
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -121,7 +124,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		// Now create and return a CursorLoader that will take care of
 		// creating a Cursor for the data being displayed.
 
-		return new CursorLoader(getActivity(), baseUri, mColumns, null, null, SORT_ORDER_TEXT);
+		return new CursorLoader(getActivity(), baseUri, mColumns, null, null, SORT_ORDER_DIST);
 	}
 
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
