@@ -1,30 +1,48 @@
+# -*- coding: utf-8 -*-
 import base64
 import random
 import string
 import urllib
 from django.template import TemplateDoesNotExist
-import json
 from models import *
-import importer
+import json, importer, data, random, utils
 
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
+LOG = logging.getLogger("pages")
 
 class IndexPage(webapp.RequestHandler):
     def get(self):
         values = {
-            "var1":"hallo",
-
+            "var1":"hallo ññ",
         }
-        values["var1"]='test'
         self.response.out.write(template.render('templates/index.html', values))
 
 class SentencesPage(webapp.RequestHandler):
     def get(self):
-        values = {}
-        self.response.out.write(json.dumps({"test": "gelukt"}))
+        results = {}
+        list = Sentence.all()
+
+        for sentence in list:
+            group = results.get(sentence.group)
+
+            if not group:
+                group = {}
+                results[sentence.group] = group
+
+            group[sentence.locale] = {
+                "id": sentence.key().id(),
+                "value": sentence.value
+            }
+
+        results2 = []
+        for key, value in results.items():
+            results2.append({"group":key, "values": value})
+
+        self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
+        self.response.out.write(json.dumps({"list": results2}, indent=4, ensure_ascii=True))
 
 class HistoryPage(webapp.RequestHandler):
     def get(self):
@@ -37,8 +55,5 @@ class SaveAssessment(webapp.RequestHandler):
 
 class TempPage(webapp.RequestHandler):
     def get(self):
-        importer.importSentences(importer.data)
-        #for sent in importer.data:
-        #    self.response.out.write(sent["nl"])
-
+        importer.importSentences(data.list)
         self.response.out.write("Done ... ")
