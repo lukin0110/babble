@@ -5,7 +5,10 @@ import string
 import urllib
 from django.template import TemplateDoesNotExist
 from models import *
-import json, importer, data, random, utils
+import importer, data, random, utils
+
+#import json
+from django.utils import simplejson as json
 
 import logging
 from google.appengine.ext import webapp
