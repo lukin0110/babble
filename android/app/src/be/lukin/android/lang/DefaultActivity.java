@@ -204,6 +204,11 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 		case R.id.menuMainPhrases:
 			startActivity(new Intent(this, PhrasesActivity.class));
 			return true;
+		case R.id.menuLanguagesPlot:
+			LanguagesBarChart lbc = new LanguagesBarChart();
+			Intent intent = lbc.execute(this);
+			startActivity(intent);
+			return true;
 		case R.id.menuMainSettings:
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
