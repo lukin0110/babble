@@ -6,6 +6,7 @@ import android.speech.RecognitionListener;
 import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.format.Time;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -281,7 +282,11 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 
 
 	private void addEntry(String text, String lang, int dist, String result) {
+		Time now = new Time();
+		now.setToNow();
+		long timestamp = now.toMillis(false);
 		ContentValues values = new ContentValues();
+		values.put(Phrase.Columns.TIMESTAMP, timestamp);
 		values.put(Phrase.Columns.TEXT, text);
 		values.put(Phrase.Columns.LANG, lang);
 		values.put(Phrase.Columns.DIST, dist);

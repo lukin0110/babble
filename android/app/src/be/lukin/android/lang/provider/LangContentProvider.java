@@ -25,7 +25,7 @@ public class LangContentProvider extends ContentProvider {
 
 	private static final String DATABASE_NAME = "lang.db";
 
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	private static final UriMatcher sUriMatcher;
 
@@ -48,6 +48,7 @@ public class LangContentProvider extends ContentProvider {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + PHRASE_TABLE_NAME + " ("
 					+ Phrase.Columns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ Phrase.Columns.TIMESTAMP + " TIMESTAMP,"
 					+ Phrase.Columns.TEXT + " TEXT NOT NULL,"
 					+ Phrase.Columns.LANG + " TEXT NOT NULL," // TODO: should be short string
 					+ Phrase.Columns.DIST + " INTEGER,"
@@ -195,6 +196,7 @@ public class LangContentProvider extends ContentProvider {
 
 		appsProjectionMap = new HashMap<String, String>();
 		appsProjectionMap.put(Phrase.Columns._ID, Phrase.Columns._ID);
+		appsProjectionMap.put(Phrase.Columns.TIMESTAMP, Phrase.Columns.TIMESTAMP);
 		appsProjectionMap.put(Phrase.Columns.TEXT, Phrase.Columns.TEXT);
 		appsProjectionMap.put(Phrase.Columns.LANG, Phrase.Columns.LANG);
 		appsProjectionMap.put(Phrase.Columns.DIST, Phrase.Columns.DIST);

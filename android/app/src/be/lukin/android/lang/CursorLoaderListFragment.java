@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.SimpleCursorAdapter;
 
@@ -29,10 +28,11 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 
 	private static final String SORT_ORDER_TEXT = Phrase.Columns.TEXT + " ASC";
 	private static final String SORT_ORDER_DIST = Phrase.Columns.DIST + " ASC";
-	//private static final String SORT_ORDER_TIMESTAMP = Phrase.Columns.TEXT + " ASC";
+	private static final String SORT_ORDER_TIMESTAMP = Phrase.Columns.TIMESTAMP + " DESC";
 
 	private static final String[] mColumns = new String[] {
 		Phrase.Columns._ID,
+		Phrase.Columns.TIMESTAMP,
 		Phrase.Columns.TEXT,
 		Phrase.Columns.LANG,
 		Phrase.Columns.DIST,
@@ -44,6 +44,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 
 		int[] to = new int[] {
 				R.id.list_item_id,
+				R.id.list_item_timestamp,
 				R.id.list_item_text,
 				R.id.list_item_lang,
 				R.id.list_item_dist,
@@ -124,7 +125,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		// Now create and return a CursorLoader that will take care of
 		// creating a Cursor for the data being displayed.
 
-		return new CursorLoader(getActivity(), baseUri, mColumns, null, null, SORT_ORDER_DIST);
+		return new CursorLoader(getActivity(), baseUri, mColumns, null, null, SORT_ORDER_TIMESTAMP);
 	}
 
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

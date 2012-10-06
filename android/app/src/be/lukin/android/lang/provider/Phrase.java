@@ -13,6 +13,8 @@ public class Phrase {
 
 		public static final Uri CONTENT_URI = makeContentUri(LangContentProvider.PHRASE_TABLE_NAME);
 
+		// Timestamp of when the entry was added
+		public static final String TIMESTAMP = "TIMESTAMP";
 		// Text of the phrase
 		public static final String TEXT = "TEXT";
 		// Language of the phrase
