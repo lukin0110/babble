@@ -2,6 +2,7 @@ package be.lukin.android.lang;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
@@ -33,6 +34,12 @@ import java.util.Locale;
 
 
 public class DefaultActivity extends AbstractRecognizerActivity {
+
+	// Stop listening the user input after this period of milliseconds.
+	// The input sentences are short and using the app should be snappy so
+	// we don't want to spend too much on a single utterance.
+	// TODO: maybe allow it to be configured in the settings
+	public static final int LISTENING_TIMEOUT = 3000;
 
 	private State mState = State.INIT;
 
@@ -416,6 +423,13 @@ public class DefaultActivity extends AbstractRecognizerActivity {
 			public void onReadyForSpeech(Bundle params) {
 				mState = State.RECORDING;
 				mButtonMicrophone.setState(mState);
+				Runnable stopListening = new Runnable() {
+					@Override
+					public void run() {
+						sr.stopListening();
+					}
+				};
+				new Handler().postDelayed(stopListening, LISTENING_TIMEOUT);
 			}
 
 			@Override
