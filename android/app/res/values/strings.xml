@@ -8,7 +8,7 @@
     <string name="urlVHackProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
     <string name="urlLangProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
     <string name="urlLangDownload" translatable="false">https://play.google.com/store/apps/details?id=be.lukin.android.lang</string>
-    <string name="labelApp">Mumble Babble</string>
+    <string name="labelApp">Babble</string>
     <string name="prefCurrentSortOrder" translatable="false">prefCurrentSortOrder</string>
     <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
     <string name="prefRecognizerServiceCls" translatable="false">prefRecognizerServiceCls</string>
@@ -39,8 +39,8 @@
     <string name="dialogTitleLanguage">Override input language</string>
     <string name="titleAudioCues">Play audio cues</string>
     <string name="summaryAudioCues">Beep before and after recording</string>
-    <string name="titleLangProject">project Mumble Babble</string>
-    <string name="summaryLangProject">(made this app in 47h)</string>
+    <string name="titleLangProject">project Babble</string>
+    <string name="summaryLangProject">(made this app in 47 hours)</string>
     <string name="titleVHackProject">V Hack Android</string>
     <string name="summaryVHackProject">V Hack Android (Belgium 2012)</string>
     <string name="confirmDeleteEntry">Are you sure you want to delete entry \"%1$s\"?</string>
