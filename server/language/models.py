@@ -14,6 +14,6 @@ class Sentence(db.Model):
 class Assessment(db.Model):
     phoneId = db.StringProperty(required=True)
     sentenceId = db.StringProperty(required=True)
-    score = db.FloatProperty(required=True, default=-1)
+    score = db.IntegerProperty(required=True, default=-1)
     resultFromTTS = db.StringProperty(required=False)
     date_created = db.DateTimeProperty()

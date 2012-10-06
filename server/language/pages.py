@@ -6,7 +6,6 @@ import urllib
 from django.template import TemplateDoesNotExist
 from models import *
 import json, importer, data, random, utils
-import datetime
 
 import logging
 from google.appengine.ext import webapp
@@ -83,7 +82,8 @@ class SaveAssessment(webapp.RequestHandler):
         sentenceId = self.get('sentenceId')
         score = self.get('score')
         resultFromTTS = self.get('resultFromTTS')
-        Assessment(phoneId = phoneId,sentenceId = sentenceId,resultFromTTS=resultFromTTS,score=score,date_created=datetime.now()).save()
+        date_created = self.get('date_created')
+        Assessment(phoneId = phoneId,sentenceId = sentenceId,resultFromTTS=resultFromTTS,score=score,date_created=date_created).save()
 
     self.response.headers["Content-Type"] = "text/plain; charset=utf-8"
         self.response.out.write(json.dumps({"test": "d"}, indent=4))
