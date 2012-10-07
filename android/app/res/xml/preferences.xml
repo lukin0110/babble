@@ -8,6 +8,8 @@
         android:key="@string/keyService"
         android:title="@string/titleService" >
     </ListPreference>
+
+    <!--
     <ListPreference
         android:dialogTitle="@string/dialogTitleLanguage"
         android:entries="@array/entriesLanguage"
@@ -21,11 +23,17 @@
         android:key="@string/keyMaxOneResult"
         android:summary="@string/summaryMaxOneResult"
         android:title="@string/titleMaxOneResult" />
+    -->
     <CheckBoxPreference
         android:defaultValue="@bool/defaultAudioCues"
         android:key="@string/keyAudioCues"
         android:summary="@string/summaryAudioCues"
         android:title="@string/titleAudioCues" />
+    <CheckBoxPreference
+        android:defaultValue="@bool/defaultDemoMode"
+        android:key="@string/keyDemoMode"
+        android:summary="@string/summaryDemoMode"
+        android:title="@string/titleDemoMode" />
 
     <PreferenceCategory android:title="@string/titleCategoryLinks" >
         <Preference

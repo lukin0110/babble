@@ -4,6 +4,7 @@
     <string name="keyService" translatable="false">keyService</string>
     <string name="keyLanguage" translatable="false">keyLanguage</string>
     <string name="keyMaxOneResult" translatable="false">keyMaxOneResult</string>
+    <string name="keyDemoMode" translatable="false">keyDemoMode</string>
     <string name="keyAudioCues" translatable="false">keyAudioCues</string>
     <string name="urlVHackProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
     <string name="urlBabbleProject" translatable="false">http://vhackandroid.wikia.com/wiki/Babble</string>
@@ -36,6 +37,8 @@
     <string name="titleCategoryLinks">Links</string>
     <string name="titleMaxOneResult">I feel lucky</string>
     <string name="summaryMaxOneResult">Consider only the most probable recognition result</string>
+    <string name="titleDemoMode">Demo mode</string>
+    <string name="summaryDemoMode">Use the locally stored ~30 demo phrases only</string>
     <string name="titleService">Speech recognizer</string>
     <string name="dialogTitleService">Select speech recognizer</string>
     <string name="titleLanguage">Force language</string>

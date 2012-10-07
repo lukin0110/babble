@@ -407,7 +407,10 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private class DownloadSentencesTask extends AsyncTask<Void, Integer, List<Sentence>> {
 		protected List<Sentence> doInBackground(Void... arg0) {
-			return LangService.getDemoSentences();
+			if (mPrefs.getBoolean(getString(R.string.keyDemoMode), mRes.getBoolean(R.bool.defaultDemoMode))) {
+				return LangService.getDemoSentences();
+			}
+			return LangService.getSentences();
 		}
 
 		protected void onProgressUpdate(Integer... progress) {

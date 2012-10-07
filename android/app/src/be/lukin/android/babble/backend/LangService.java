@@ -26,8 +26,11 @@ public class LangService {
 	public static List<Sentence> getDemoSentences() {
 		List<Sentence> l = new ArrayList<Sentence>();
 		l.add(new Sentence("How much wood would a woodchuck chuck if a woodchuck could chuck wood?", "en"));
-		l.add(new Sentence("Three beers please", "en"));
+		l.add(new Sentence("That beer please!", "en"));
 		l.add(new Sentence("These bears are unbearable", "en"));
+		l.add(new Sentence("We are sinking, we are sinking", "en"));
+		l.add(new Sentence("What are you thinking about?", "en"));
+		l.add(new Sentence("I'll be back", "en"));
 		l.add(new Sentence("Vamos a la playa!", "es"));
 		l.add(new Sentence("¿Cómo te llamas?", "es"));
 		l.add(new Sentence("Tiene arroz con pollo?", "es"));
@@ -38,14 +41,20 @@ public class LangService {
 		l.add(new Sentence("Talpra magyar, hí a haza! Itt az idő, most vagy soha!", "hu"));
 		l.add(new Sentence("Jó napot kívánok", "hu"));
 		l.add(new Sentence("Köszönöm szépen", "hu"));
+		l.add(new Sentence("A fehér ló", "hu"));
 		l.add(new Sentence("Nett, Sie kennen zu lernen.", "de"));
 		l.add(new Sentence("Gibt es hier jemanden, der Englisch spricht?", "de"));
 		l.add(new Sentence("Helposti saatu on helposti menetetty", "fi"));
-		l.add(new Sentence("Hyvää ruokahalua!", "fi"));
+		l.add(new Sentence("Hyvää ruokahalua, saippuakivikauppias!", "fi"));
 		l.add(new Sentence("Haluaisitko tanssia kanssani?", "fi"));
 		l.add(new Sentence("Hyvää joulua ja onnellista uutta vuotta", "fi"));
 		l.add(new Sentence("Ik heb mijn bagage verloren.", "nl"));
 		l.add(new Sentence("Mag ik uw telefoon gebruiken?", "nl"));
+		l.add(new Sentence("Genk ontstond uit een Keltische nederzetting.", "nl"));
+		l.add(new Sentence("Voulez-vous coucher avec moi (ce soir)?", "fr"));
+		l.add(new Sentence("Je ne parle pas bien français.", "fr"));
+		l.add(new Sentence("Est-ce qu'il y a quelqu'un ici qui parle anglais?", "fr"));
+		l.add(new Sentence("Puis-je utiliser votre téléphone?", "fr"));
 		return l;
 	}
 
