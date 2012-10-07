@@ -1,9 +1,9 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import be.lukin.android.lang.provider.Phrase;
+import be.lukin.android.babble.provider.Phrase;
 
 import android.app.AlertDialog;
 import android.content.Context;

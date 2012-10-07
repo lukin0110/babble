@@ -1,6 +1,6 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
-import be.lukin.android.lang.provider.Phrase;
+import be.lukin.android.babble.provider.Phrase;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,12 +27,6 @@ public class PhrasesActivity extends SubActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phrases);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-		// TODO: display the number of phrases on the action bar
-		/*
-		mActionBar.setSubtitle(
-				mRes.getQuantityString(R.plurals.numberOfInputs, count, count));
-		 */
 	}
 
 

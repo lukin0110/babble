@@ -47,7 +47,7 @@
             android:textSize="@dimen/textSizeMainScore"
             android:visibility="gone" />
 
-        <be.lukin.android.lang.MicButton
+        <be.lukin.android.babble.MicButton
             android:id="@+id/buttonMicrophone"
             android:layout_width="@dimen/heightMainMic"
             android:layout_height="@dimen/heightMainMic"

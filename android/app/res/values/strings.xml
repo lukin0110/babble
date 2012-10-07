@@ -7,7 +7,7 @@
     <string name="keyAudioCues" translatable="false">keyAudioCues</string>
     <string name="urlVHackProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
     <string name="urlBabbleProject" translatable="false">http://vhackandroid.wikia.com/wiki/Babble</string>
-    <string name="urlBabbleDownload" translatable="false">https://play.google.com/store/apps/details?id=be.lukin.android.lang</string>
+    <string name="urlBabbleDownload" translatable="false">https://play.google.com/store/apps/details?id=be.lukin.android.babble</string>
     <string name="labelApp">Babble</string>
     <string name="prefCurrentSortOrder" translatable="false">prefCurrentSortOrder</string>
     <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
@@ -66,11 +66,5 @@
     <string name="defaultLanguage" translatable="false">en-US</string>
 
     <string-array name="valuesLanguage" translatable="false"></string-array>
-
-    <plurals name="numberOfInputs">
-        <item quantity="zero">no inputs</item> <!-- zero is ignored in English -->
-        <item quantity="one">1 input</item>
-        <item quantity="other">%d inputs</item>
-    </plurals>
 
 </resources>

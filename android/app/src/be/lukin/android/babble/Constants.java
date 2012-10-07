@@ -1,4 +1,4 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
 public class Constants {
 

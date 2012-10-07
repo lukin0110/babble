@@ -1,6 +1,6 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
-import be.lukin.android.lang.provider.Phrase;
+import be.lukin.android.babble.provider.Phrase;
 import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;

@@ -1,4 +1,4 @@
-package be.lukin.android.lang.backend;
+package be.lukin.android.babble.backend;
 
 public class Sentence implements BabblePhrase {
 	private int id;

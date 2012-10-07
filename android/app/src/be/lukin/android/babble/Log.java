@@ -1,10 +1,10 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
 public class Log {
 
 	private static final boolean DEBUG = true;
 
-	public static final String LOG_TAG = "be.lukin.android.lang";
+	public static final String LOG_TAG = "be.lukin.android.babble";
 
 	public static void i(String msg) {
 		if (DEBUG) android.util.Log.i(LOG_TAG, msg);

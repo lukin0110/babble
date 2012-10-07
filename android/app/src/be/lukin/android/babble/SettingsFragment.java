@@ -1,4 +1,4 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;

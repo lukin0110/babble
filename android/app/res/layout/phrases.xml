@@ -6,12 +6,12 @@
 
     <fragment
         android:id="@+id/list"
-        android:name="be.lukin.android.lang.CursorLoaderListFragment"
+        android:name="be.lukin.android.babble.CursorLoaderListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
     <!--
-    <fragment android:name="be.lukin.android.lang.PhraseExplorer"
+    <fragment android:name="be.lukin.android.babble.PhraseExplorer"
             android:id="@+id/viewer"
             android:layout_weight="2"
             android:layout_width="0dp"

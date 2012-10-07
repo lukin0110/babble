@@ -1,4 +1,4 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
 import android.content.Context;
 import android.media.MediaPlayer;

@@ -1,8 +1,8 @@
-package be.lukin.android.lang.provider;
+package be.lukin.android.babble.provider;
 
 import java.util.HashMap;
 
-import be.lukin.android.lang.Log;
+import be.lukin.android.babble.Log;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -17,15 +17,15 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-public class LangContentProvider extends ContentProvider {
+public class BabbleContentProvider extends ContentProvider {
 
 	public static final String PHRASE_TABLE_NAME = "phrase";
 
-	public static final String AUTHORITY = "be.lukin.android.lang.provider.LangContentProvider";
+	public static final String AUTHORITY = "be.lukin.android.babble.provider.BabbleContentProvider";
 
-	private static final String DATABASE_NAME = "lang.db";
+	private static final String DATABASE_NAME = "babble.db";
 
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 1;
 
 	private static final UriMatcher sUriMatcher;
 

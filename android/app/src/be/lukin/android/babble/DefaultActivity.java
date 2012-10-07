@@ -1,4 +1,4 @@
-package be.lukin.android.lang;
+package be.lukin.android.babble;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,8 +25,8 @@ import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import be.lukin.android.lang.Constants.State;
-import be.lukin.android.lang.provider.Phrase;
+import be.lukin.android.babble.Constants.State;
+import be.lukin.android.babble.provider.Phrase;
 
 import java.util.ArrayList;
 import java.util.List;

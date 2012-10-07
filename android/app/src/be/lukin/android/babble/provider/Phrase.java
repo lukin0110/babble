@@ -1,4 +1,4 @@
-package be.lukin.android.lang.provider;
+package be.lukin.android.babble.provider;
 
 import android.net.Uri;
 
@@ -11,7 +11,7 @@ public class Phrase {
 		private Columns() {
 		}
 
-		public static final Uri CONTENT_URI = makeContentUri(LangContentProvider.PHRASE_TABLE_NAME);
+		public static final Uri CONTENT_URI = makeContentUri(BabbleContentProvider.PHRASE_TABLE_NAME);
 
 		// Timestamp of when the entry was added
 		public static final String TIMESTAMP = "TIMESTAMP";
