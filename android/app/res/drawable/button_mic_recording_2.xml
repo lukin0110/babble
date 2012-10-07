@@ -4,7 +4,7 @@
     <item><shape android:shape="oval">
             <gradient android:angle="270" android:endColor="@color/buttonRecordingNormal2" android:startColor="@color/buttonRecordingNormal1" />
 
-            <stroke android:width="14dp" android:color="@color/buttonStroke" />
+            <stroke android:width="17dp" android:color="@color/buttonStroke" />
 
         </shape></item>
 

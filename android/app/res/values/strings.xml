@@ -43,9 +43,9 @@
     <string name="titleAudioCues">Play audio cues</string>
     <string name="summaryAudioCues">Beep before and after recording</string>
     <string name="titleBabbleProject">project Babble</string>
-    <string name="summaryBabbleProject">(made this app in 47 hours in the Genk library)</string>
+    <string name="summaryBabbleProject">(made this app in 47 hours in the beautiful Genk library)</string>
     <string name="titleVHackProject">V Hack Android</string>
-    <string name="summaryVHackProject">V Hack Android (Belgium 2012)</string>
+    <string name="summaryVHackProject">V Hack Android Belgium 2012</string>
     <string name="confirmDeleteEntry">Are you sure you want to delete entry \"%1$s\"?</string>
     <string name="buttonMicrophoneContentDescription">Press this button to speak a phrase</string>
     <string name="buttonYes">Yes</string>

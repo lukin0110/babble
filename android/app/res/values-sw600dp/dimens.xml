@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="textSizeMainPhrase">34sp</dimen>
+    <dimen name="textSizeMainScore">26sp</dimen>
+    <dimen name="textSizeListLang">24sp</dimen>
+    <dimen name="textSizeListDist">24sp</dimen>
+    <dimen name="textSizeListText">28sp</dimen>
+    <dimen name="textSizeListResult">26sp</dimen>
+    <dimen name="heightMainMic">200dp</dimen>
+
+</resources>

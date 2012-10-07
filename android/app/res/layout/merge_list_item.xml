@@ -7,7 +7,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@color/very_transparent"
-        android:textSize="14sp"
+        android:textSize="@dimen/textSizeListLang"
         android:typeface="monospace" />
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_below="@+id/list_item_lang"
         android:padding="1dp"
         android:textColor="@color/blue"
-        android:textSize="18sp" />
+        android:textSize="@dimen/textSizeListText" />
 
     <TextView
         android:id="@+id/list_item_result"
@@ -28,7 +28,7 @@
         android:layout_below="@+id/list_item_text"
         android:padding="1dp"
         android:textColor="@color/android_green"
-        android:textSize="16sp" />
+        android:textSize="@dimen/textSizeListResult" />
 
     <TextView
         android:id="@+id/list_item_dist"
@@ -38,7 +38,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignWithParentIfMissing="true"
         android:textColor="@color/red"
-        android:textSize="14sp"
+        android:textSize="@dimen/textSizeListDist"
         android:typeface="monospace" />
 
     <TextView

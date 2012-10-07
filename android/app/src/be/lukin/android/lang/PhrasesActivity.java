@@ -53,7 +53,10 @@ public class PhrasesActivity extends SubActivity {
 		// Indicate the current sort order by checking the corresponding radio button
 		int id = mPrefs.getInt(getString(R.string.prefCurrentSortOrderMenu), R.id.menuMainSortByTimestamp);
 		MenuItem menuItem = menu.findItem(id);
-		menuItem.setChecked(true);
+		// TODO: check why null can happen
+		if (menuItem != null) {
+			menuItem.setChecked(true);
+		}
 		return true;
 	}
 

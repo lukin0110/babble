@@ -277,7 +277,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	private void setUiResult(String langCode, String resultText, int dist) {
 		mTvResult.setText(resultText);
 		Locale l = new Locale(langCode);
-		String distText = "Sorry, but no native speaker of " + l.getDisplayName(l) + " (" + langCode + ") would understand you...";
+		String distText = "Sorry, but no native speaker of " + l.getDisplayName(l) + " (" + langCode + ") would understand you!";
 		if (dist == 0) {
 			distText = "Perfect!";
 		} else if (dist < 10) {
