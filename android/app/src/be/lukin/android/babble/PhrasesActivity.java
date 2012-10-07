@@ -16,7 +16,7 @@ public class PhrasesActivity extends SubActivity {
 
 	private static final String SORT_ORDER_TEXT = Phrase.Columns.TEXT + " ASC";
 	private static final String SORT_ORDER_LANG = Phrase.Columns.LANG + " ASC";
-	private static final String SORT_ORDER_DIST = Phrase.Columns.DIST + " ASC";
+	private static final String SORT_ORDER_DIST = Phrase.Columns.DIST + " DESC";
 	private static final String SORT_ORDER_TIMESTAMP = Phrase.Columns.TIMESTAMP + " DESC";
 
 	private SharedPreferences mPrefs;
