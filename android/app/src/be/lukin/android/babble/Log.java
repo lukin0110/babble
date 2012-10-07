@@ -2,7 +2,7 @@ package be.lukin.android.babble;
 
 public class Log {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 
 	public static final String LOG_TAG = "be.lukin.android.babble";
 

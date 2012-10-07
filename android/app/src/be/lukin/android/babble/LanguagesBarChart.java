@@ -39,7 +39,7 @@ public class LanguagesBarChart extends AbstractChart {
 		List<String> langs = new ArrayList<String>(map.keySet());
 		Collections.sort(langs);
 
-		int[] colors = new int[] { Color.parseColor("#0099CC") };
+		int[] colors = new int[] { Color.parseColor("#CC0000") };
 		XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
 		renderer.setOrientation(Orientation.HORIZONTAL);
 		renderer.setXLabels(0);

@@ -13,7 +13,7 @@
     <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
     <string name="prefRecognizerServiceCls" translatable="false">prefRecognizerServiceCls</string>
     <string name="labelPhrases">Phrases</string>
-    <string name="labelLanguagesPlot">Average error level</string>
+    <string name="labelLanguagesPlot">Average Levenshtein</string>
     <string name="labelSettings">Settings</string>
     <string name="error">Error</string>
     <string name="errorResultAudioError">Audio recording failed. Maybe another app is currently recording.</string>
@@ -55,7 +55,7 @@
     <string name="buttonGoToStore">Go to Play Store</string>
     <string name="buttonNever">Never</string>
     <string name="buttonLater">Later</string>
-    <string name="stateInit">Ready to start? Then press the big yellow button…</string>
+    <string name="stateInit">Ready to babble? Then press the big yellow button…</string>
     <string name="emptylistPhrases">No phrases yet</string>
 
     <!-- TODO: get rid of the following, because these are picked up dynamically -->

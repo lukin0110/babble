@@ -6,6 +6,12 @@ public class Sentence implements BabblePhrase {
 	private String value;
 	private int group;
 
+	// Sentence with the default ID and group ID.
+	// Note: the IDs are not unique ;)
+	public Sentence(String value, String locale) {
+		this(1, locale, value, 2);
+	}
+
 	public Sentence(int id, String locale, String value, int group) {
 		this.id = id;
 		this.locale = locale;

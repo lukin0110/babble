@@ -3,7 +3,6 @@
 
     <item
         android:id="@+id/menuMainPhrases"
-        android:icon="@drawable/ic_menu_sort_by_size"
         android:showAsAction="ifRoom|withText"
         android:title="@string/menuMainPhrases"/>
     <item

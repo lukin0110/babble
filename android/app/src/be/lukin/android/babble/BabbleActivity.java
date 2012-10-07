@@ -407,7 +407,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private class DownloadSentencesTask extends AsyncTask<Void, Integer, List<Sentence>> {
 		protected List<Sentence> doInBackground(Void... arg0) {
-			return LangService.getSentences();
+			return LangService.getDemoSentences();
 		}
 
 		protected void onProgressUpdate(Integer... progress) {

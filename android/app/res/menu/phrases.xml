@@ -25,7 +25,6 @@
     </item>
     <item
         android:id="@+id/menuLanguagesPlot"
-        android:icon="@drawable/ic_menu_sort_by_size"
         android:showAsAction="ifRoom|withText"
         android:title="@string/menuLanguagesPlot"/>
 
