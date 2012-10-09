@@ -9,9 +9,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.SpannableString;
@@ -22,13 +19,12 @@ public class Utils {
 	private Utils() {}
 
 	private static final String PUNCT = "\\p{Punct}";
+	private static final String SPACE = "\\p{Space}";
 
-
-	// TODO: delete punctuation and spaces
 	// TODO: scale by string lengths
 	public static int phraseDistance(String s1, String s2) {
-		s1 = s1.toLowerCase().replaceAll(PUNCT, "");
-		s2 = s2.toLowerCase().replaceAll(PUNCT, "");
+		s1 = s1.toLowerCase().replaceAll(SPACE, "").replaceAll(PUNCT, "");
+		s2 = s2.toLowerCase().replaceAll(SPACE, "").replaceAll(PUNCT, "");
 		return computeDistance(s1, s2);
 	}
 
@@ -60,27 +56,8 @@ public class Utils {
 	}
 
 
-	/**
-	 * TODO: should we immediately return null if id = 0?
-	 */
-	public static String idToValue(Context context, Uri contentUri, String columnId, String columnUrl, long id) {
-		String value = null;
-		Cursor c = context.getContentResolver().query(
-				contentUri,
-				new String[] { columnUrl },
-				columnId + "= ?",
-				new String[] { String.valueOf(id) },
-				null);
-
-		if (c.moveToFirst()) {
-			value = c.getString(0);
-		}
-		c.close();
-		return value;
-	}
-
-
 	// TODO: add restriction by timestamp
+	// TODO: SELECT Lang,AVG(Dist) FROM Babble GROUP BY Lang
 	public static Map<String, Double> getLangToDist(Context context) {
 		Map<String, Double> langToDist = new HashMap<String, Double>();
 		Map<String, Integer> langToCount = new HashMap<String, Integer>();
@@ -106,7 +83,8 @@ public class Utils {
 		c.close();
 
 		for (String lang : langToDist.keySet()) {
-			langToDist.put(lang, langToDist.get(lang) / langToCount.get(lang));
+			double avg = langToDist.get(lang) / langToCount.get(lang);
+			langToDist.put(lang, avg);
 		}
 		return langToDist;
 	}
@@ -161,25 +139,5 @@ public class Utils {
 		})
 		.setMessage(s)
 		.create();
-	}
-
-
-	public static String getVersionName(Context c) {
-		PackageInfo info = getPackageInfo(c);
-		if (info == null) {
-			return "?.?.?";
-		}
-		return info.versionName;
-	}
-
-
-	private static PackageInfo getPackageInfo(Context c) {
-		PackageManager manager = c.getPackageManager();
-		try {
-			return manager.getPackageInfo(c.getPackageName(), 0);
-		} catch (NameNotFoundException e) {
-			Log.e("Couldn't find package information in PackageManager: " + e);
-		}
-		return null;
 	}
 }

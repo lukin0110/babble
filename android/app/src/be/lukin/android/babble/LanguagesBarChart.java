@@ -34,7 +34,6 @@ public class LanguagesBarChart extends AbstractChart {
 
 		List<double[]> values = new ArrayList<double[]>();
 		double[] vals1 = new double[map.size()];
-		double[] vals2 = new double[map.size()];
 
 		List<String> langs = new ArrayList<String>(map.keySet());
 		Collections.sort(langs);
@@ -53,8 +52,7 @@ public class LanguagesBarChart extends AbstractChart {
 				max = map.get(lang);
 			}
 			renderer.addXTextLabel(counter+1, lang);
-			vals1[counter] = (map.get(lang) - counter);
-			vals2[counter] = map.get(lang);
+			vals1[counter] = map.get(lang);
 			counter++;
 		}
 
@@ -62,15 +60,6 @@ public class LanguagesBarChart extends AbstractChart {
 		setChartSettings(renderer, "Title", "Lang", "Performance", 0, map.size() + 1, 0, max, Color.GRAY, Color.LTGRAY);
 
 		values.add(vals1);
-		//values.add(vals2);
-
-		/*
-		int length = renderer.getSeriesRendererCount();
-		for (int i = 0; i < length; i++) {
-			SimpleSeriesRenderer seriesRenderer = renderer.getSeriesRendererAt(i);
-			seriesRenderer.setDisplayChartValues(true);
-		}
-		 */
 		return ChartFactory.getBarChartIntent(context, buildBarDataset(titles, values), renderer, Type.DEFAULT);
 	}
 

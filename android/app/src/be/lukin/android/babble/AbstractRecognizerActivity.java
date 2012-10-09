@@ -14,11 +14,6 @@ import android.widget.Toast;
 
 public abstract class AbstractRecognizerActivity extends Activity {
 
-	public String getVersionName() {
-		return Utils.getVersionName(this);
-	}
-
-
 	protected List<ResolveInfo> getIntentActivities(Intent intent) {
 		PackageManager pm = getPackageManager();
 		List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);

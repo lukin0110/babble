@@ -38,7 +38,7 @@
     <string name="titleMaxOneResult">I feel lucky</string>
     <string name="summaryMaxOneResult">Consider only the most probable recognition result</string>
     <string name="titleDemoMode">Demo mode</string>
-    <string name="summaryDemoMode">Use the locally stored ~30 demo phrases only</string>
+    <string name="summaryDemoMode">Use the locally stored ~50 demo phrases only</string>
     <string name="titleService">Speech recognizer</string>
     <string name="dialogTitleService">Select speech recognizer</string>
     <string name="titleLanguage">Force language</string>

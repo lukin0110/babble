@@ -55,6 +55,26 @@ public class LangService {
 		l.add(new Sentence("Je ne parle pas bien français.", "fr"));
 		l.add(new Sentence("Est-ce qu'il y a quelqu'un ici qui parle anglais?", "fr"));
 		l.add(new Sentence("Puis-je utiliser votre téléphone?", "fr"));
+		l.add(new Sentence("jag pratar inte svenska", "sv"));
+		l.add(new Sentence("jag pratar väldigt lite svenska", "sv"));
+		l.add(new Sentence("İyiyim, teşekkür ederim!", "tr"));
+		l.add(new Sentence("Astiro-astiro hitz egin mesedez", "Euskara"));
+		l.add(new Sentence("Možete li da mi pomognete?", "sr"));
+		l.add(new Sentence("Această doamnă va plăti pentru tot", "ro"));
+		l.add(new Sentence("Pot să utilizez telefonul dumneavoastra?", "ro"));
+		l.add(new Sentence("Qual é seu nome?", "pt"));
+		l.add(new Sentence("jeg har et spørsmål", "nb"));
+		l.add(new Sentence("L'italia è un paese meraviglioso.", "it"));
+		l.add(new Sentence("Quando ci incontriamo?", "it"));
+		l.add(new Sentence("È un'emergenza.", "it"));
+		l.add(new Sentence("Posso usare il suo telefono?", "it"));
+		l.add(new Sentence("Langt síðan við höfum sést", "is"));
+		l.add(new Sentence("Hvaðan kemur þú?", "is"));
+		l.add(new Sentence("Eitt tungumál er aldrei nóg", "is"));
+		l.add(new Sentence("Jak se jmenuješ", "cs"));
+		l.add(new Sentence("S dovolením, kolik to stoji?", "cs"));
+		l.add(new Sentence("Ти си добре дошъл!", "bg"));
+		l.add(new Sentence("Вървете направо! После завивате на ляво!", "bg"));
 		return l;
 	}
 

@@ -294,6 +294,14 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		final String mLang = lang;
 		Intent intentRecognizer = createRecognizerIntent(lang);
 
+		final Runnable stopListening = new Runnable() {
+			@Override
+			public void run() {
+				sr.stopListening();
+			}
+		};
+		final Handler handler = new Handler();
+
 		sr.setRecognitionListener(new RecognitionListener() {
 
 			@Override
@@ -309,6 +317,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			@Override
 			public void onEndOfSpeech() {
 				mState = State.TRANSCRIBING;
+				handler.removeCallbacks(stopListening);
 				mButtonMicrophone.setState(mState);
 				if (mAudioCue != null) {
 					mAudioCue.playStopSound();
@@ -318,6 +327,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			@Override
 			public void onError(int error) {
 				mState = State.ERROR;
+				handler.removeCallbacks(stopListening);
 				mButtonMicrophone.setState(mState);
 				setUiReady();
 				if (mAudioCue != null) {
@@ -370,17 +380,12 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			public void onReadyForSpeech(Bundle params) {
 				mState = State.RECORDING;
 				mButtonMicrophone.setState(mState);
-				Runnable stopListening = new Runnable() {
-					@Override
-					public void run() {
-						sr.stopListening();
-					}
-				};
-				new Handler().postDelayed(stopListening, LISTENING_TIMEOUT);
+				handler.postDelayed(stopListening, LISTENING_TIMEOUT);
 			}
 
 			@Override
 			public void onResults(Bundle results) {
+				handler.removeCallbacks(stopListening);
 				ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 				mState = State.INIT;
 				mButtonMicrophone.setState(mState);
