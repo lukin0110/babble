@@ -1,5 +1,5 @@
-Lang app
-========
+Babble
+======
 
 Building
 --------
@@ -21,18 +21,18 @@ Installing
 
 	ant clean release
 
-	adb install -r bin/Lang-release.apk
+	adb install -r bin/Babble-release.apk
 
 
 Uninstalling
 ------------
 
-	adb uninstall be.lukin.android.lang
+	adb uninstall be.lukin.android.babble
 
 
 Other
 -----
 
-	android create project -n Lang -t 6 -p . -k be.lukin.android.lang -a DefaultActivity
+	android create project -n Babble -t 6 -p . -k be.lukin.android.babble -a DefaultActivity
 
 	keytool -genkey -v -keystore lang.keystore -alias langalias -keyalg RSA -keysize 2048 -validity 10000
