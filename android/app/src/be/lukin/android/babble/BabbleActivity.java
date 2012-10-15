@@ -8,6 +8,7 @@ import android.speech.RecognitionListener;
 import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +40,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	// The input sentences are short and using the app should be snappy so
 	// we don't want to spend too much on a single utterance.
 	// TODO: maybe allow it to be configured in the settings
-	public static final int LISTENING_TIMEOUT = 3000;
+	public static final int LISTENING_TIMEOUT = 4000;
 
 	private State mState = State.INIT;
 
@@ -49,8 +50,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	private MicButton mButtonMicrophone;
 
 	private AudioCue mAudioCue;
-
-	//private ActionBar mActionBar;
 
 	private SpeechRecognizer mSr;
 
@@ -172,6 +171,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getApplicationContext().getPackageName());
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, langSource);
 		if (mPrefs.getBoolean(getString(R.string.keyMaxOneResult), mRes.getBoolean(R.bool.defaultMaxOneResult))) { 
 			intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
@@ -288,6 +288,11 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	}
 
 
+	private void setPartialResult(String[] results) {
+		mTvResult.setText(TextUtils.join(" · ", results));
+	}
+
+
 	private void startListening(final SpeechRecognizer sr, String phrase, String lang) {
 
 		final String mPhrase = phrase;
@@ -306,11 +311,13 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 			@Override
 			public void onBeginningOfSpeech() {
+				Log.i("onBeginningOfSpeech");
 				mState = State.LISTENING;
 			}
 
 			@Override
 			public void onBufferReceived(byte[] buffer) {
+				//Log.i("onBufferReceived: " + buffer.length);
 				// TODO maybe show buffer waveform
 			}
 
@@ -368,12 +375,20 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 			@Override
 			public void onEvent(int eventType, Bundle params) {
-				// TODO ???
+				Log.i("onEvent: " + eventType + " " + params);
+				// TODO: no recognizer service seems to call this
 			}
 
 			@Override
 			public void onPartialResults(Bundle partialResults) {
-				// ignore
+				// This is supported (only?) by Google Voice Search.
+				// The following is Google-specific.
+				Log.i("onPartialResults: keySet: " + partialResults.keySet());
+				String[] results = partialResults.getStringArray("com.google.android.voicesearch.UNSUPPORTED_PARTIAL_RESULTS");
+				//double[] resultsConfidence = partialResults.getDoubleArray("com.google.android.voicesearch.UNSUPPORTED_PARTIAL_RESULTS_CONFIDENCE");
+				if (results != null) {
+					setPartialResult(results);
+				}
 			}
 
 			@Override
