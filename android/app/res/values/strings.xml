@@ -25,6 +25,8 @@
     <string name="errorCommandNotSupported">Command not supported</string>
     <string name="errorIntentActivityNotPresent">There is no app to perform this task. Install it from Play Store first.</string>
     <string name="errorNoDefaultRecognizer">Speech recognizer not installed or no default recognizer set</string>
+    <string name="errorTtsLangNotAvailable">TTS data unavailable for %1$s</string>
+    <string name="errorTtsInitError">TTS initialization failed</string>
     <string name="menuMainSort">Sort …</string>
     <string name="menuMainSortByTimestamp">by time</string>
     <string name="menuMainSortByLang">by language</string>

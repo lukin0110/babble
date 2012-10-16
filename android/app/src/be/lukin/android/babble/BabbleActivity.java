@@ -288,6 +288,12 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	}
 
 
+	private void setErrorMessage(int res) {
+		mTvScore.setText(getString(res));
+		mTvScore.setVisibility(View.VISIBLE);
+	}
+
+
 	private void setPartialResult(String[] results) {
 		mTvResult.setText(TextUtils.join(" · ", results));
 	}
@@ -336,34 +342,33 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 				mState = State.ERROR;
 				handler.removeCallbacks(stopListening);
 				mButtonMicrophone.setState(mState);
-				setUiReady();
 				if (mAudioCue != null) {
 					mAudioCue.playErrorSound();
 				}
 				switch (error) {
 				case SpeechRecognizer.ERROR_AUDIO:
-					showErrorDialog(R.string.errorResultAudioError);
+					setErrorMessage(R.string.errorResultAudioError);
 					break;
 				case SpeechRecognizer.ERROR_CLIENT:
-					showErrorDialog(R.string.errorResultClientError);
+					setErrorMessage(R.string.errorResultClientError);
 					break;
 				case SpeechRecognizer.ERROR_NETWORK:
-					showErrorDialog(R.string.errorResultNetworkError);
+					setErrorMessage(R.string.errorResultNetworkError);
 					break;
 				case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-					showErrorDialog(R.string.errorResultNetworkError);
+					setErrorMessage(R.string.errorResultNetworkError);
 					break;
 				case SpeechRecognizer.ERROR_SERVER:
-					showErrorDialog(R.string.errorResultServerError);
+					setErrorMessage(R.string.errorResultServerError);
 					break;
 				case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-					showErrorDialog(R.string.errorResultServerError);
+					setErrorMessage(R.string.errorResultServerError);
 					break;
 				case SpeechRecognizer.ERROR_NO_MATCH:
-					showErrorDialog(R.string.errorResultNoMatch);
+					setErrorMessage(R.string.errorResultNoMatch);
 					break;
 				case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-					showErrorDialog(R.string.errorResultNoMatch);
+					setErrorMessage(R.string.errorResultNoMatch);
 					break;
 				case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
 					// This is programmer error.

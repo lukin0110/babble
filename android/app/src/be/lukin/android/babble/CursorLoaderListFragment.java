@@ -1,5 +1,8 @@
 package be.lukin.android.babble;
 
+import java.util.HashMap;
+import java.util.Locale;
+
 import be.lukin.android.babble.provider.Phrase;
 import android.app.ListFragment;
 import android.app.LoaderManager;
@@ -10,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.SimpleCursorAdapter;
 
@@ -29,6 +34,8 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 	String mCurFilter;
 
 	private String mCurrentSortOrder;
+
+	private static final String UTT_COMPLETED_FEEDBACK = "UTT_COMPLETED_FEEDBACK";
 
 	private static final String[] mColumns = new String[] {
 		Phrase.Columns._ID,
@@ -73,6 +80,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		getLoaderManager().initLoader(0, null, this);
 	}
 
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Place an action bar item for searching.
@@ -114,10 +122,15 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		return true;
 	}
 
-	@Override public void onListItemClick(ListView l, View v, int position, long id) {
-		Log.i("FragmentComplexList", "Item clicked: " + id);
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO: launch the home activity to practice this phrase
 		// or read it with speech synthesizer
+		Cursor cursor = (Cursor) getListView().getItemAtPosition(position);
+		String text = cursor.getString(cursor.getColumnIndex(Phrase.Columns.TEXT));
+		String lang = cursor.getString(cursor.getColumnIndex(Phrase.Columns.LANG));
+		Log.i("Item clicked: " + text);
+		say(text, lang);
 	}
 
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -157,5 +170,45 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		// above is about to be closed.  We need to make sure we are no
 		// longer using it.
 		mAdapter.swapCursor(null);
+	}
+
+
+	@SuppressWarnings("deprecation")
+	private void say(String text, String lang) {
+		PhrasesActivity activity = (PhrasesActivity) getActivity();
+		TextToSpeech tts = activity.getTts();
+		if (tts != null) {
+			// TODO: maybe skip this step if the language has not changed
+			boolean success = setTtsLang(tts, lang);
+			if (success) {
+				tts.setOnUtteranceCompletedListener(new TextToSpeech.OnUtteranceCompletedListener() {
+					@Override
+					public void onUtteranceCompleted(String utteranceId) {
+						Log.i("onUtteranceCompleted: " + utteranceId);
+						if (utteranceId.equals(UTT_COMPLETED_FEEDBACK)) {
+							// TODO: maybe do something
+						}
+					}
+				});
+				HashMap<String, String> params = new HashMap<String, String>();
+				params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTT_COMPLETED_FEEDBACK);
+				tts.speak(text, TextToSpeech.QUEUE_FLUSH, params);
+			} else {
+				Toast.makeText(getActivity(), String.format(getString(R.string.errorTtsLangNotAvailable), lang),
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+
+	private static boolean setTtsLang(TextToSpeech tts, String localeAsStr) {
+		Log.i("Default TTS engine:" + tts.getDefaultEngine());
+		Locale locale = new Locale(localeAsStr);
+		if (tts.isLanguageAvailable(locale) >= 0) {
+			tts.setLanguage(locale);
+			Log.i("Set TTS to locale: " + locale);
+			return true;
+		}
+		return false;
 	}
 }

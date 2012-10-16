@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,9 @@ public class PhrasesActivity extends SubActivity {
 	private static final String SORT_ORDER_DIST = Phrase.Columns.DIST + " DESC";
 	private static final String SORT_ORDER_TIMESTAMP = Phrase.Columns.TIMESTAMP + " DESC";
 
+	private static final int TTS_DATA_CHECK_CODE = 1;
+	private TextToSpeech mTts;
+
 	private SharedPreferences mPrefs;
 	private static String mCurrentSortOrder;
 
@@ -27,6 +31,10 @@ public class PhrasesActivity extends SubActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phrases);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		Intent checkIntent = new Intent();
+		checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+		startActivityForResult(checkIntent, TTS_DATA_CHECK_CODE);
 	}
 
 
@@ -36,6 +44,17 @@ public class PhrasesActivity extends SubActivity {
 		SharedPreferences.Editor editor = mPrefs.edit();
 		editor.putString(getString(R.string.prefCurrentSortOrder), mCurrentSortOrder);
 		editor.commit();
+	}
+
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		// Stop TTS
+		if (mTts != null) {
+			mTts.shutdown();
+		}
 	}
 
 
@@ -78,6 +97,33 @@ public class PhrasesActivity extends SubActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == TTS_DATA_CHECK_CODE) {
+			if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+				mTts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+					@Override
+					public void onInit(int status) {
+						if (status == TextToSpeech.SUCCESS) {
+						} else {
+							// TODO: inform the user about the TTS problem
+							Log.e(getString(R.string.errorTtsInitError));
+						}
+					}
+				});
+			} else {
+				Intent installIntent = new Intent();
+				installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+				startActivity(installIntent);
+			}
+		}
+	}
+
+
+	public TextToSpeech getTts() {
+		return mTts;
 	}
 
 

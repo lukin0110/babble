@@ -75,6 +75,8 @@ public class LangService {
 		l.add(new Sentence("S dovolením, kolik to stoji?", "cs"));
 		l.add(new Sentence("Ти си добре дошъл!", "bg"));
 		l.add(new Sentence("Вървете направо! После завивате на ляво!", "bg"));
+		l.add(new Sentence("elas metsas mutionu, keset kuuski noori-vanu", "et"));
+		l.add(new Sentence("põdral maja metsa sees, väiksest aknast välja vaatas", "et"));
 		return l;
 	}
 
