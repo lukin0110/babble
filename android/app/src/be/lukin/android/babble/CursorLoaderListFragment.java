@@ -75,6 +75,8 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		// Start out with a progress indicator.
 		setListShown(false);
 
+		getListView().setFastScrollEnabled(true);
+
 		// Prepare the loader.  Either re-connect with an existing one,
 		// or start a new one.
 		getLoaderManager().initLoader(0, null, this);

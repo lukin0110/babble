@@ -2,7 +2,7 @@
 <resources>
 
     <string name="keyService" translatable="false">keyService</string>
-    <string name="keyLanguage" translatable="false">keyLanguage</string>
+    <string name="keyLanguages" translatable="false">keyLanguages</string>
     <string name="keyMaxOneResult" translatable="false">keyMaxOneResult</string>
     <string name="keyDemoMode" translatable="false">keyDemoMode</string>
     <string name="keyAudioCues" translatable="false">keyAudioCues</string>
@@ -40,15 +40,15 @@
     <string name="titleMaxOneResult">I feel lucky</string>
     <string name="summaryMaxOneResult">Consider only the most probable recognition result</string>
     <string name="titleDemoMode">Demo mode</string>
-    <string name="summaryDemoMode">Use the locally stored ~50 demo phrases only</string>
+    <string name="summaryDemoMode">Use the locally stored ~200 demo phrases only</string>
     <string name="titleService">Speech recognizer</string>
     <string name="dialogTitleService">Select speech recognizer</string>
-    <string name="titleLanguage">Force language</string>
-    <string name="dialogTitleLanguage">Override input language</string>
+    <string name="titleLanguages">Languages</string>
+    <string name="dialogTitleLanguages">Select languages</string>
     <string name="titleAudioCues">Play audio cues</string>
     <string name="summaryAudioCues">Beep before and after recording</string>
     <string name="titleBabbleProject">project Babble</string>
-    <string name="summaryBabbleProject">(made this app in 47 hours in the beautiful Genk library)</string>
+    <string name="summaryBabbleProject">(made this app in 48 hours in the beautiful Genk library)</string>
     <string name="titleVHackProject">V Hack Android</string>
     <string name="summaryVHackProject">V Hack Android Belgium 2012</string>
     <string name="confirmDeleteEntry">Are you sure you want to delete entry \"%1$s\"?</string>
@@ -63,13 +63,59 @@
     <string name="stateInit">Ready to babble? Then press the big yellow button…</string>
     <string name="emptylistPhrases">No phrases yet</string>
 
-    <!-- TODO: get rid of the following, because these are picked up dynamically -->
     <string-array name="entriesService" translatable="false"></string-array>
     <string-array name="valuesService" translatable="false"></string-array>
-    <string-array name="entriesLanguage" translatable="false"></string-array>
-
-    <string name="defaultLanguage" translatable="false">en-US</string>
-
-    <string-array name="valuesLanguage" translatable="false"></string-array>
+    <string-array name="entriesLanguages">
+        <item>Bulgarian</item>
+        <item>Catalan</item>
+        <item>Czech</item>
+        <item>German</item>
+        <item>English</item>
+        <item>Spanish</item>
+        <item>Estonian</item>
+        <item>Basque</item>
+        <item>Finnish</item>
+        <item>French</item>
+        <item>Hungarian</item>
+        <item>Islandic</item>
+        <item>Italian</item>
+        <item>Latin</item>
+        <item>Norwegian</item>
+        <item>Dutch</item>
+        <item>Polish</item>
+        <item>Portugese</item>
+        <item>Romanian</item>
+        <item>Russian</item>
+        <item>Slovak</item>
+        <item>Serbian</item>
+        <item>Swedish</item>
+        <item>Turkish</item>
+    </string-array>
+    <string-array name="valuesLanguages" translatable="false">
+        <item>bg</item>
+        <item>ca</item>
+        <item>cs</item>
+        <item>de</item>
+        <item>en</item>
+        <item>es</item>
+        <item>et</item>
+        <item>Euskara</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>hu</item>
+        <item>is</item>
+        <item>it</item>
+        <item>Latin</item>
+        <item>nb</item>
+        <item>nl</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>sk</item>
+        <item>sr</item>
+        <item>sv</item>
+        <item>tr</item>
+    </string-array>
 
 </resources>

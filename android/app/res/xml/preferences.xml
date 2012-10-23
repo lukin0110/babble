@@ -9,21 +9,23 @@
         android:title="@string/titleService" >
     </ListPreference>
 
-    <!--
-    <ListPreference
-        android:dialogTitle="@string/dialogTitleLanguage"
-        android:entries="@array/entriesLanguage"
-        android:entryValues="@array/valuesLanguage"
-        android:key="@string/keyLanguage"
-        android:title="@string/titleLanguage" >
-    </ListPreference>
+    <MultiSelectListPreference
+        android:defaultValue="@array/valuesLanguages"
+        android:dialogTitle="@string/dialogTitleLanguages"
+        android:entries="@array/entriesLanguages"
+        android:entryValues="@array/valuesLanguages"
+        android:key="@string/keyLanguages"
+        android:title="@string/titleLanguages" >
+    </MultiSelectListPreference>
 
+    <!--
     <CheckBoxPreference
         android:defaultValue="@bool/defaultMaxOneResult"
         android:key="@string/keyMaxOneResult"
         android:summary="@string/summaryMaxOneResult"
         android:title="@string/titleMaxOneResult" />
     -->
+
     <CheckBoxPreference
         android:defaultValue="@bool/defaultAudioCues"
         android:key="@string/keyAudioCues"

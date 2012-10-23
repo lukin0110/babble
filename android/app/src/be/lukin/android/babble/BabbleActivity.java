@@ -30,8 +30,11 @@ import be.lukin.android.babble.backend.Sentence;
 import be.lukin.android.babble.provider.Phrase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 
 public class BabbleActivity extends AbstractRecognizerActivity {
@@ -167,12 +170,14 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private Intent createRecognizerIntent(String langSource) {
+	private Intent createRecognizerIntent(String phrase, String lang) {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getApplicationContext().getPackageName());
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 		intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, langSource);
+		// We let the recognizer know what the user was instructed to say.
+		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, phrase);
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, lang);
 		if (mPrefs.getBoolean(getString(R.string.keyMaxOneResult), mRes.getBoolean(R.bool.defaultMaxOneResult))) { 
 			intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 		}
@@ -245,8 +250,8 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 
 	private Sentence getSentence() {
-		if (mSentences == null) {
-			return new Sentence(1, "en", "I like Android", 2);
+		if (mSentences == null || mSentences.isEmpty()) {
+			return new Sentence(1, "en", "How much wood would a woodchuck chuck?", 2);
 		}
 		return mSentences.get(getRandom(mSentences.size()-1));
 	}
@@ -303,7 +308,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 		final String mPhrase = phrase;
 		final String mLang = lang;
-		Intent intentRecognizer = createRecognizerIntent(lang);
+		Intent intentRecognizer = createRecognizerIntent(phrase, lang);
 
 		final Runnable stopListening = new Runnable() {
 			@Override
@@ -433,7 +438,11 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	private class DownloadSentencesTask extends AsyncTask<Void, Integer, List<Sentence>> {
 		protected List<Sentence> doInBackground(Void... arg0) {
 			if (mPrefs.getBoolean(getString(R.string.keyDemoMode), mRes.getBoolean(R.bool.defaultDemoMode))) {
-				return LangService.getDemoSentences();
+
+				Set<String> locales = mPrefs.getStringSet(
+						getString(R.string.keyLanguages),
+						new HashSet<String>(Arrays.asList(mRes.getStringArray(R.array.valuesLanguages))));
+				return LangService.getDemoSentences(getApplicationContext(), locales);
 			}
 			return LangService.getSentences();
 		}

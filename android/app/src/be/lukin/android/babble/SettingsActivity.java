@@ -12,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
 import android.os.Bundle;
 import android.preference.ListPreference;
+import android.preference.MultiSelectListPreference;
 import android.preference.PreferenceManager;
 import android.speech.RecognitionService;
 
@@ -20,7 +21,7 @@ public class SettingsActivity extends SubActivity implements OnSharedPreferenceC
 	private SettingsFragment mSettingsFragment;
 	private SharedPreferences mPrefs;
 	private String mKeyService;
-	private String mKeyLanguage;
+	private String mKeyLanguages;
 
 	// TODO: we support one service per package, this might
 	// be a limitation...
@@ -33,7 +34,7 @@ public class SettingsActivity extends SubActivity implements OnSharedPreferenceC
 		mSettingsFragment = new SettingsFragment();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		mKeyService = getString(R.string.keyService);
-		mKeyLanguage = getString(R.string.keyLanguage);
+		mKeyLanguages = getString(R.string.keyLanguages);
 
 		// Display the fragment as the main content.
 		getFragmentManager().beginTransaction().replace(android.R.id.content, mSettingsFragment).commit();
@@ -67,9 +68,10 @@ public class SettingsActivity extends SubActivity implements OnSharedPreferenceC
 		if (key.equals(mKeyService)) {
 			ListPreference pref = (ListPreference) mSettingsFragment.findPreference(key);
 			pref.setSummary(pref.getEntry());
-		} else if (key.equals(mKeyLanguage)) {
-			ListPreference pref = (ListPreference) mSettingsFragment.findPreference(key);
-			pref.setSummary(pref.getEntry());
+		} else if (key.equals(mKeyLanguages)) {
+			// TODO: show the number of selected languages
+			// MultiSelectListPreference pref = (MultiSelectListPreference) mSettingsFragment.findPreference(key);
+			// pref.setSummary(pref.getEntryValues().length + " languages");
 		}
 	}
 
