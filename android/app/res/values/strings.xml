@@ -45,6 +45,7 @@
     <string name="dialogTitleService">Select speech recognizer</string>
     <string name="titleLanguages">Languages</string>
     <string name="dialogTitleLanguages">Select languages</string>
+    <string name="summaryLanguages">Select the languages that are used in the training</string>
     <string name="titleAudioCues">Play audio cues</string>
     <string name="summaryAudioCues">Beep before and after recording</string>
     <string name="titleBabbleProject">project Babble</string>
@@ -57,11 +58,12 @@
     <string name="buttonNo">No</string>
     <string name="buttonOk">OK</string>
     <string name="buttonCancel">Cancel</string>
-    <string name="buttonGoToStore">Go to Play Store</string>
     <string name="buttonNever">Never</string>
     <string name="buttonLater">Later</string>
     <string name="stateInit">Ready to babble? Then press the big yellow button…</string>
     <string name="emptylistPhrases">No phrases yet</string>
+    <string name="msgDist0">Perfect!</string>
+    <string name="msgDist10">Pretty good</string>
 
     <string-array name="entriesService" translatable="false"></string-array>
     <string-array name="valuesService" translatable="false"></string-array>

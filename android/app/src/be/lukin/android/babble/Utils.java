@@ -8,9 +8,7 @@ import be.lukin.android.babble.provider.Phrase;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.text.SpannableString;
 import android.text.util.Linkify;
 
@@ -120,24 +118,5 @@ public class Utils {
 			}
 		});
 		return builder.create();
-	}
-
-
-	public static AlertDialog getGoToStoreDialog(final Context context, String msg, final Uri uri) {
-		final SpannableString s = new SpannableString(msg);
-		Linkify.addLinks(s, Linkify.ALL);
-		return new AlertDialog.Builder(context)
-		.setPositiveButton(context.getString(R.string.buttonGoToStore), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-			}
-		})
-		.setNegativeButton(context.getString(R.string.buttonCancel), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-			}
-		})
-		.setMessage(s)
-		.create();
 	}
 }

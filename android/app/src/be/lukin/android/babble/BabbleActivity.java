@@ -59,7 +59,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	private TextView mTvPhrase;
 	private TextView mTvResult;
 	private TextView mTvScore;
+	private TextView mTvLang;
 	private List<Sentence> mSentences;
+	private Sentence mCurrentSentence;
 
 	private static final Uri CONTENT_URI = Phrase.Columns.CONTENT_URI;
 
@@ -75,6 +77,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		mTvPhrase = (TextView) findViewById(R.id.tvPhrase);
 		mTvResult = (TextView) findViewById(R.id.tvResult);
 		mTvScore = (TextView) findViewById(R.id.tvScore);
+		mTvLang = (TextView) findViewById(R.id.tvLang);
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
 		//mActionBar = getActionBar();
@@ -189,22 +192,36 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		mButtonMicrophone.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (mState == State.INIT || mState == State.ERROR) {
-					Sentence sent = getSentence();
-					setUiInput(sent.getValue());
-					if (mAudioCue != null) {
-						mAudioCue.playStartSoundAndSleep();
-					}
-					startListening(sr, sent.getValue(), sent.getLocale());
-				}
-				else if (mState == State.LISTENING) {
+					mCurrentSentence = getSentence();
+					listenSentence(sr, mCurrentSentence, true);
+				} else if (mState == State.LISTENING) {
 					sr.stopListening();
-				} else {
-					// TODO: bad state to press the button
+				}
+			}
+		});
+
+		mTvPhrase.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				if (mState == State.INIT || mState == State.ERROR) {
+					if (mCurrentSentence != null) {
+						listenSentence(sr, mCurrentSentence, false);
+					}
+				} else if (mState == State.LISTENING) {
+					sr.stopListening();
 				}
 			}
 		});
 
 		setUiReady();
+	}
+
+
+	private void listenSentence(SpeechRecognizer sr, Sentence sent, boolean isStorePhrase) {
+		setUiInput(sent);
+		if (mAudioCue != null) {
+			mAudioCue.playStartSoundAndSleep();
+		}
+		startListening(sr, sent.getValue(), sent.getLocale(), isStorePhrase);
 	}
 
 
@@ -267,13 +284,15 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		llMicrophone.setVisibility(View.VISIBLE);
 		llMicrophone.setEnabled(true);
 		mTvPhrase.setText("");
+		mTvLang.setText("");
 		mTvResult.setText(getString(R.string.stateInit));
 		mTvScore.setVisibility(View.GONE);
 	}
 
 
-	private void setUiInput(String text) {
-		mTvPhrase.setText(text);
+	private void setUiInput(Sentence sent) {
+		mTvPhrase.setText(sent.getValue());
+		mTvLang.setText(langLabel(sent.getLocale()));
 		mTvResult.setText("");
 		mTvScore.setVisibility(View.GONE);
 	}
@@ -281,12 +300,11 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private void setUiResult(String langCode, String resultText, int dist) {
 		mTvResult.setText(resultText);
-		Locale l = new Locale(langCode);
-		String distText = "Sorry, but no native speaker of " + l.getDisplayName(l) + " (" + langCode + ") would understand you!";
+		String distText = "Sorry, no speaker of " + langLabel(langCode) + " would understand you!";
 		if (dist == 0) {
-			distText = "Perfect!";
+			distText = getString(R.string.msgDist0);
 		} else if (dist < 10) {
-			distText = "Pretty good";
+			distText = getString(R.string.msgDist10);
 		}
 		mTvScore.setText(distText);
 		mTvScore.setVisibility(View.VISIBLE);
@@ -304,7 +322,13 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private void startListening(final SpeechRecognizer sr, String phrase, String lang) {
+	private String langLabel(String langCode) {
+		Locale l = new Locale(langCode);
+		return l.getDisplayName(l) + " (" + langCode + ")";
+	}
+
+
+	private void startListening(final SpeechRecognizer sr, String phrase, String lang, final boolean isStorePhrase) {
 
 		final String mPhrase = phrase;
 		final String mLang = lang;
@@ -422,7 +446,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 					String result = matches.iterator().next();
 					int dist = Utils.phraseDistance(mPhrase, result);
 					setUiResult(mLang, result, dist);
-					addEntry(mPhrase, mLang, dist, result);
+					if (isStorePhrase) {
+						addEntry(mPhrase, mLang, dist, result);
+					}
 				}
 			}
 

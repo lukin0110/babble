@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="textSizeMainPhrase">24sp</dimen>
-    <dimen name="textSizeMainScore">16sp</dimen>
+    <dimen name="textSizeMainPhrase">22sp</dimen>
+    <dimen name="textSizeMainScore">14sp</dimen>
     <dimen name="textSizeListLang">14sp</dimen>
     <dimen name="textSizeListDist">14sp</dimen>
     <dimen name="textSizeListText">18sp</dimen>

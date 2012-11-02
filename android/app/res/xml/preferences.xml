@@ -15,6 +15,7 @@
         android:entries="@array/entriesLanguages"
         android:entryValues="@array/valuesLanguages"
         android:key="@string/keyLanguages"
+        android:summary="@string/summaryLanguages"
         android:title="@string/titleLanguages" >
     </MultiSelectListPreference>
 

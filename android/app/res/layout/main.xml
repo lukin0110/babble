@@ -4,25 +4,41 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tvPhrase"
+    <LinearLayout
+        android:id="@+id/llPhrase"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text=""
-        android:textColor="@color/blue"
-        android:textSize="@dimen/textSizeMainPhrase" />
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/tvPhrase"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="6dp"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/textSizeMainPhrase" />
+
+        <TextView
+            android:id="@+id/tvLang"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="6dp"
+            android:textSize="@dimen/textSizeMainScore" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPhrase"
+        android:layout_above="@+id/llMicrophone"
         android:gravity="center"
-        android:padding="10dp"
-        android:text=""
+        android:padding="8dp"
         android:textColor="@color/android_green"
         android:textSize="@dimen/textSizeMainPhrase" />
 
@@ -31,11 +47,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/transparent"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:visibility="gone" >
+        android:padding="8dp" >
 
         <TextView
             android:id="@+id/tvScore"
@@ -44,8 +59,7 @@
             android:gravity="center"
             android:padding="8dp"
             android:textColor="@color/red"
-            android:textSize="@dimen/textSizeMainScore"
-            android:visibility="gone" />
+            android:textSize="@dimen/textSizeMainScore" />
 
         <be.lukin.android.babble.MicButton
             android:id="@+id/buttonMicrophone"
