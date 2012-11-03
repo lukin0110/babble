@@ -2,7 +2,8 @@
 <resources>
 
     <dimen name="textSizeMainPhrase">36sp</dimen>
-    <dimen name="textSizeMainScore">26sp</dimen>
+    <dimen name="textSizeMainFeedback">30sp</dimen>
+    <dimen name="textSizeMainLang">26sp</dimen>
     <dimen name="textSizeListLang">24sp</dimen>
     <dimen name="textSizeListDist">24sp</dimen>
     <dimen name="textSizeListText">28sp</dimen>

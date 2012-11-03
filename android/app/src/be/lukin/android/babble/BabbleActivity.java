@@ -56,9 +56,11 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private SpeechRecognizer mSr;
 
+	private LinearLayout mLlPhrase;
+	private LinearLayout mLlMicrophone;
 	private TextView mTvPhrase;
 	private TextView mTvResult;
-	private TextView mTvScore;
+	private TextView mTvFeedback;
 	private TextView mTvLang;
 	private List<Sentence> mSentences;
 	private Sentence mCurrentSentence;
@@ -68,20 +70,29 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.i("onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
 		mRes = getResources();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+		mLlPhrase = (LinearLayout) findViewById(R.id.llPhrase);
 		mTvPhrase = (TextView) findViewById(R.id.tvPhrase);
 		mTvResult = (TextView) findViewById(R.id.tvResult);
-		mTvScore = (TextView) findViewById(R.id.tvScore);
+		mTvFeedback = (TextView) findViewById(R.id.tvFeedback);
 		mTvLang = (TextView) findViewById(R.id.tvLang);
+		mLlMicrophone = (LinearLayout) findViewById(R.id.llMicrophone);
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
 		//mActionBar = getActionBar();
 		//mActionBar.setHomeButtonEnabled(false);
+
+		// When the activity is started nothing is displayed
+		mLlPhrase.setVisibility(View.INVISIBLE);
+		mLlMicrophone.setVisibility(View.INVISIBLE);
+		mTvResult.setText("");
+		mTvFeedback.setVisibility(View.INVISIBLE);
 
 		new DownloadSentencesTask().execute();
 	}
@@ -200,7 +211,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			}
 		});
 
-		mTvPhrase.setOnClickListener(new View.OnClickListener() {
+		mLlPhrase.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (mState == State.INIT || mState == State.ERROR) {
 					if (mCurrentSentence != null) {
@@ -211,8 +222,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 				}
 			}
 		});
-
-		setUiReady();
 	}
 
 
@@ -268,7 +277,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private Sentence getSentence() {
 		if (mSentences == null || mSentences.isEmpty()) {
-			return new Sentence(1, "en", "How much wood would a woodchuck chuck?", 2);
+			return new Sentence(1, "en", getString(R.string.examplePhrase), 2);
 		}
 		return mSentences.get(getRandom(mSentences.size()-1));
 	}
@@ -279,46 +288,41 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private void setUiReady() {
-		LinearLayout llMicrophone = (LinearLayout) findViewById(R.id.llMicrophone);
-		llMicrophone.setVisibility(View.VISIBLE);
-		llMicrophone.setEnabled(true);
-		mTvPhrase.setText("");
-		mTvLang.setText("");
-		mTvResult.setText(getString(R.string.stateInit));
-		mTvScore.setVisibility(View.GONE);
-	}
-
-
 	private void setUiInput(Sentence sent) {
 		mTvPhrase.setText(sent.getValue());
 		mTvLang.setText(langLabel(sent.getLocale()));
+		mLlPhrase.setVisibility(View.VISIBLE);
 		mTvResult.setText("");
-		mTvScore.setVisibility(View.GONE);
+		mTvFeedback.setVisibility(View.INVISIBLE);
 	}
 
 
 	private void setUiResult(String langCode, String resultText, int dist) {
 		mTvResult.setText(resultText);
-		String distText = "Sorry, no speaker of " + langLabel(langCode) + " would understand you!";
-		if (dist == 0) {
-			distText = getString(R.string.msgDist0);
-		} else if (dist < 10) {
-			distText = getString(R.string.msgDist10);
-		}
-		mTvScore.setText(distText);
-		mTvScore.setVisibility(View.VISIBLE);
+		mTvFeedback.setText(getDistText(dist, langCode));
+		mTvFeedback.setVisibility(View.VISIBLE);
 	}
 
 
 	private void setErrorMessage(int res) {
-		mTvScore.setText(getString(res));
-		mTvScore.setVisibility(View.VISIBLE);
+		mTvFeedback.setText(getString(res));
+		mTvFeedback.setVisibility(View.VISIBLE);
 	}
 
 
 	private void setPartialResult(String[] results) {
 		mTvResult.setText(TextUtils.join(" · ", results));
+	}
+
+
+	private String getDistText(int dist, String langCode) {
+		if (dist == 0) {
+			return getString(R.string.msgDist0);
+		}
+		if (dist < 10) {
+			return getString(R.string.msgDist10);
+		}
+		return "Sorry, no speaker of " + langLabel(langCode) + " would understand you!";
 	}
 
 
@@ -478,8 +482,11 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		}
 
 		protected void onPostExecute(List<Sentence> result) {
+			Log.i("DownloadSentencesTask: onPostExecute");
 			mSentences = result;
-			setUiReady();
+			mLlMicrophone.setVisibility(View.VISIBLE);
+			mLlMicrophone.setEnabled(true);
+			mTvResult.setText(getString(R.string.stateInit));
 		}
 	}
 

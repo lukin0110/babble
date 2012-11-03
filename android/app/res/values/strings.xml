@@ -64,6 +64,8 @@
     <string name="emptylistPhrases">No phrases yet</string>
     <string name="msgDist0">Perfect!</string>
     <string name="msgDist10">Pretty good</string>
+    <string name="examplePhrase">How much wood would a woodchuck chuck if a woodchuck could chuck wood?</string>
+    <string name="defaultLang">English (en-US)</string>
 
     <string-array name="entriesService" translatable="false"></string-array>
     <string-array name="valuesService" translatable="false"></string-array>

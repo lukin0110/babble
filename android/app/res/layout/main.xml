@@ -9,10 +9,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="6dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_phrase"
         android:orientation="vertical"
-        android:padding="8dp" >
+        android:padding="4dp" >
 
         <TextView
             android:id="@+id/tvPhrase"
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="6dp"
+            android:text="@string/examplePhrase"
             android:textColor="@color/blue"
             android:textSize="@dimen/textSizeMainPhrase" />
 
@@ -29,7 +30,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="6dp"
-            android:textSize="@dimen/textSizeMainScore" />
+            android:text="@string/defaultLang"
+            android:textColor="@color/grey3"
+            android:textSize="@dimen/textSizeMainLang" />
     </LinearLayout>
 
     <TextView
@@ -39,8 +42,9 @@
         android:layout_above="@+id/llMicrophone"
         android:gravity="center"
         android:padding="8dp"
+        android:text="@string/examplePhrase"
         android:textColor="@color/android_green"
-        android:textSize="@dimen/textSizeMainPhrase" />
+        android:textSize="@dimen/textSizeMainFeedback" />
 
     <LinearLayout
         android:id="@+id/llMicrophone"
@@ -53,13 +57,14 @@
         android:padding="8dp" >
 
         <TextView
-            android:id="@+id/tvScore"
+            android:id="@+id/tvFeedback"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="8dp"
+            android:text="Perfect!"
             android:textColor="@color/red"
-            android:textSize="@dimen/textSizeMainScore" />
+            android:textSize="@dimen/textSizeMainFeedback" />
 
         <be.lukin.android.babble.MicButton
             android:id="@+id/buttonMicrophone"
